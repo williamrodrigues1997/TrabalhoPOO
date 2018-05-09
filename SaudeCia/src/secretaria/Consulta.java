@@ -1,8 +1,8 @@
 package secretaria;
 
+import medicos.Medico;
 import java.io.Serializable;
 import java.util.Objects;
-import medicos.Medico;
 
 public class Consulta implements Serializable {
 

@@ -9,7 +9,6 @@ import secretaria.Paciente;
 public class DadosAdicionaisPaciente implements Serializable {
 
     //Atributos
-    private Integer id;
     private Paciente paciente;
     private boolean fuma;
     private boolean bebe;
@@ -24,10 +23,6 @@ public class DadosAdicionaisPaciente implements Serializable {
     }
 
     //Metodos
-    public Integer getId() {
-        return id;
-    }
-
     public Paciente getPaciente() {
         return paciente;
     }
