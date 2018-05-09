@@ -22,6 +22,10 @@ public class Prontuario implements Serializable {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }    
+
     public Paciente getPaciente() {
         return paciente;
     }

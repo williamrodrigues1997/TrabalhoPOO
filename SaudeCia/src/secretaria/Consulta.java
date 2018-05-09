@@ -10,7 +10,7 @@ public class Consulta implements Serializable {
     private Integer id;
     private String data;
     private String horario;
-    private Medico medico;
+    private String medico;
     private Paciente paciente;
     private TipoConsulta tipo;
 
@@ -39,11 +39,11 @@ public class Consulta implements Serializable {
         this.horario = horario;
     }
 
-    public Medico getMedico() {
+    public String getMedico() {
         return medico;
     }
 
-    public void setMedico(Medico medico) {
+    public void setMedico(String medico) {
         this.medico = medico;
     }
 
