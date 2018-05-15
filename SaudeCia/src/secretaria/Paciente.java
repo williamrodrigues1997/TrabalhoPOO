@@ -1,6 +1,7 @@
 package secretaria;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 public class Paciente implements Serializable {
@@ -10,7 +11,7 @@ public class Paciente implements Serializable {
     private String nome;
     private String cpf;
     private String rg;
-    private String dataNascimento;
+    private Date dataNascimento;
     private String endereco;
     private String telefoneCelular;
     private String email;
@@ -53,11 +54,11 @@ public class Paciente implements Serializable {
         this.rg = rg;
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

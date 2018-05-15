@@ -2,6 +2,7 @@
 package secretaria;
 
 import dados.Dados;
+import java.util.Date;
 import java.util.List;
 import medicos.Medico;
 
@@ -12,7 +13,7 @@ public class DAOConsulta {
         return Dados.listaConsultas;
     }
     
-     public void inserir(String data, String horario, String medico, Paciente paciente, TipoConsulta tipo){
+     public void inserir(Date data, String horario, String medico, Paciente paciente, TipoConsulta tipo){
         Consulta consulta = new Consulta();
         
         if(consulta.getId()==null){ //Caso seja uma nova consulta
@@ -28,7 +29,7 @@ public class DAOConsulta {
         Dados.listaConsultas.add(consulta);
     }
     
-    public void alterar(Integer id, String data, String horario, String medico, Paciente paciente, TipoConsulta tipo){
+    public void alterar(Integer id, Date data, String horario, String medico, Paciente paciente, TipoConsulta tipo){
         Consulta consulta = new Consulta();
         
         consulta.setData(data);

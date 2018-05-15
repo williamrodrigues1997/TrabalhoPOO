@@ -2,6 +2,7 @@
 package secretaria;
 
 import dados.Dados;
+import java.util.Date;
 import java.util.List;
 
 
@@ -11,7 +12,7 @@ public class DAOPaciente {
         return Dados.listaPacientes;
     }
     
-    public void inserir(String nome, String cpf, String rg, String dataNascimento, String endereco, String telefoneCelular, String email, Convenio tipoConvenio){
+    public void inserir(String nome, String cpf, String rg, Date dataNascimento, String endereco, String telefoneCelular, String email, Convenio tipoConvenio){
         Paciente paciente = new Paciente();
         
         if(paciente.getId()==null){ //Caso seja um novo paciente
@@ -30,7 +31,7 @@ public class DAOPaciente {
         Dados.listaPacientes.add(paciente);
     }
     
-    public void alterar(Integer id, String nome, String cpf, String rg, String dataNascimento, String endereco, String telefoneCelular, String email, Convenio tipoConvenio){
+    public void alterar(Integer id, String nome, String cpf, String rg, Date dataNascimento, String endereco, String telefoneCelular, String email, Convenio tipoConvenio){
         Paciente paciente = new Paciente();
         
         paciente.setNome(nome);

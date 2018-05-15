@@ -1,14 +1,16 @@
 package secretaria;
 
+
 import medicos.Medico;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 public class Consulta implements Serializable {
 
     //Atributos
     private Integer id;
-    private String data;
+    private Date data;
     private String horario;
     private String medico;
     private Paciente paciente;
@@ -23,11 +25,11 @@ public class Consulta implements Serializable {
         return id;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
