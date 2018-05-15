@@ -4,6 +4,8 @@ package principal;
 import dados.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import secretaria.*;
 import medicos.*;
 import mensagens.*;
@@ -15,7 +17,7 @@ public class PrincipalTeste {
               
         Secretaria secretaria = new Secretaria();
         Medico medico = new Medico();
-        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");        
         
         System.out.println("PRINTS DE TESTE\n");
         
@@ -30,6 +32,16 @@ public class PrincipalTeste {
                 + medico.getGerenciarProntuarios().getLista().get(0).getPaciente().getNome() 
                 + " - " + medico.getGerenciarProntuarios().getLista().get(0).getDiagnosticoDoenca() 
                 + " ...");
+        
+        //Comparar data com data do dia seguinte:
+        Date dataTeste = formatoData.parse("16/05/2018"); //instancia uma data
+        Calendar cal = Calendar.getInstance(); //Intancia um calendario
+        cal.add (Calendar.DATE, 1); //Adiciona 1 dia a data de hoje        
+        
+        if(formatoData.format(cal.getTime()).equals(formatoData.format(dataTeste))){
+            System.out.println("Falta 1 dia para data informada");
+        }
+        
     }
     
 }
