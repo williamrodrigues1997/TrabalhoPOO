@@ -5,6 +5,7 @@ public class Secretaria {
     //Atributos
     private DAOPaciente gerenciarPacientes = new DAOPaciente();
     private DAOConsulta gerenciarConsultas = new DAOConsulta();
+    private RelatorioConsulta relatorioConsulta = new RelatorioConsulta();
 
     //Construtor
     public Secretaria() {
@@ -27,6 +28,16 @@ public class Secretaria {
     public void setGerenciarConsultas(DAOConsulta gerenciarConsultas) {
         this.gerenciarConsultas = gerenciarConsultas;
     }
+
+    public RelatorioConsulta getRelatorioConsulta() {
+        return relatorioConsulta;
+    }
+
+    public void setRelatorioConsulta(RelatorioConsulta relatorioConsulta) {
+        this.relatorioConsulta = relatorioConsulta;
+    }
+    
+    
     
     
 }

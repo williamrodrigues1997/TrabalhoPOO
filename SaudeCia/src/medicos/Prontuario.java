@@ -1,10 +1,9 @@
 package medicos;
 
-import java.io.Serializable;
 import java.util.Objects;
 import secretaria.Paciente;
 
-public class Prontuario implements Serializable {
+public class Prontuario {
 
     //Atributos
     private Integer id;

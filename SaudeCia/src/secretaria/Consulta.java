@@ -1,12 +1,11 @@
 package secretaria;
 
 
-import medicos.Medico;
-import java.io.Serializable;
+import dados.Datas;
 import java.util.Date;
 import java.util.Objects;
 
-public class Consulta implements Serializable {
+public class Consulta {
 
     //Atributos
     private Integer id;
@@ -65,6 +64,15 @@ public class Consulta implements Serializable {
         this.tipo = tipo;
     }
 
+    @Override
+    public String toString(){
+        return "Data: "+ Datas.formatoData.format(this.data) 
+                + "\nHorario: " + this.horario
+                + "\nMedico: " + this.medico
+                + "\nPaciente: " +this.paciente.getNome()
+                + "\nTipo: " + this.tipo.getDescricao();
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

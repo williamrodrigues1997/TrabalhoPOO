@@ -1,10 +1,10 @@
 package secretaria;
 
-import java.io.Serializable;
+import dados.Datas;
 import java.util.Date;
 import java.util.Objects;
 
-public class Paciente implements Serializable {
+public class Paciente {
 
     //Atributos
     private Integer id;
@@ -28,7 +28,7 @@ public class Paciente implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }    
+    }
 
     public String getNome() {
         return nome;
@@ -92,6 +92,18 @@ public class Paciente implements Serializable {
 
     public void setTipoConvenio(Convenio tipoConvenio) {
         this.tipoConvenio = tipoConvenio;
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome
+                + "\nCPF: " + this.cpf
+                + "\nRG: " + this.rg
+                + "\nData de Nascimento: " + Datas.formatoData.format(dataNascimento)
+                + "\nEndereço: " + this.endereco
+                + "\nTelefone Celular: " + this.telefoneCelular
+                + "\nE-Mail: " + this.email
+                + "\nConvenio: " + this.tipoConvenio.getDescricao();
     }
 
     @Override

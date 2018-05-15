@@ -1,8 +1,8 @@
 package secretaria;
 
 public enum TipoConsulta {
-    NORMAL("Consulta normal: duração de 1 hora"),
-    RETORNO("Retorno: duração de 30 minutos");
+    NORMAL("Normal (duração de 1 hora)"),
+    RETORNO("Retorno (duração de 30 minutos)");
 
     private String descricao;
 

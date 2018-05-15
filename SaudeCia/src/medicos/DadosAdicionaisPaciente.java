@@ -1,12 +1,11 @@
 package medicos;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import secretaria.Paciente;
 
-public class DadosAdicionaisPaciente implements Serializable {
+public class DadosAdicionaisPaciente {
 
     //Atributos
     private Integer id;
