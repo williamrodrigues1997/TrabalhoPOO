@@ -96,7 +96,8 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return "Nome: " + this.nome
+        return "ID: " + this.id
+                + "\nNome: " + this.nome
                 + "\nCPF: " + this.cpf
                 + "\nRG: " + this.rg
                 + "\nData de Nascimento: " + Datas.formatoData.format(dataNascimento)

@@ -6,11 +6,17 @@ import java.text.ParseException;
 import secretaria.*;
 import medicos.*;
 import mensagens.*;
+import menus.MenuSecretaria;
 
 
 public class PrincipalTeste {
     
     public static void main(String args[]) throws ParseException {             
+        
+        MenuSecretaria menuSecretaria = new MenuSecretaria();
+        menuSecretaria.executarMenu();
+        
+        /*
         
         //CRIANDO SECRETARIA E MEDICO (Gerenciadores)
         Secretaria secretaria = new Secretaria();
@@ -27,6 +33,10 @@ public class PrincipalTeste {
         
         secretaria.getGerenciarPacientes().inserir("Ronny", "123", "123", Datas.formatoData.parse("01/01/2001"), "Rua Y", "", "", Convenio.PLANO_DE_SAUDE);
 
+        for(Paciente paciente: secretaria.getGerenciarPacientes().getLista()){
+            paciente.toString();
+        }
+        
         //INSERINDO CONSULTAS
         secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("16/05/2018"), "15:30", "Dr Testando", secretaria.getGerenciarPacientes().getLista().get(0), TipoConsulta.RETORNO);
         secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("16/05/2018"), "17:00", "Dr Estagiario", secretaria.getGerenciarPacientes().getLista().get(1), TipoConsulta.NORMAL);
@@ -44,8 +54,9 @@ public class PrincipalTeste {
         System.out.println("Prontuario inserido: " 
                 + medico.getGerenciarProntuarios().getLista().get(0).getPaciente().getNome() 
                 + " - " + medico.getGerenciarProntuarios().getLista().get(0).getDiagnosticoDoenca() 
-                + " ...");
-        
+                + " ...");   
+
+    */
         
     }
     

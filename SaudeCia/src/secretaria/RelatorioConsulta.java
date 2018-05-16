@@ -24,7 +24,8 @@ public class RelatorioConsulta {
     }
 
     /**
-     * Retorna um relatório (String) das consultas agendadas para o dia seguinte
+     * Gera um relatório (String) armazenado no atributo relatorio
+     * das consultas agendadas para o dia seguinte
      * 
      * @param opcao
      * true caso queria um relatório de pacientes COM informações de contato
