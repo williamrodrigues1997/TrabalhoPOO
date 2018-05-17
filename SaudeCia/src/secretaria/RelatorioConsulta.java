@@ -23,21 +23,21 @@ public class RelatorioConsulta {
         this.relatorio = relatorio;
     }
 
-    /**
-     * Gera um relatório (String) armazenado no atributo relatorio
-     * das consultas agendadas para o dia seguinte
-     * 
+    /** 
      * @param opcao
      * true caso queria um relatório de pacientes COM informações de contato
      * false caso queria um relatório de pacientes SEM infotmações de contato
+     * 
+     * @return
+     * Retorna um relatório (String) armazenado no atributo relatorio
+     * das consultas agendadas para o dia seguinte
      */
-    public void gerarRelatorio(boolean opcao) {
+    public String gerarRelatorio(boolean opcao) {
         Calendar calendario = Calendar.getInstance(); //Intancia um calendario
         calendario.add(Calendar.DATE, 1); //Adiciona 1 dia a data de hoje
 
         if (opcao) {
             this.relatorio = "-------------------------------"
-                    + "\n   RELATORIO DE CONSULTAS"
                     + "\n- Consultas para o dia seguinte"
                     + "\n- Pacientes COM Info de Contado";
             for (Consulta consulta : Dados.listaConsultas) {
@@ -51,7 +51,6 @@ public class RelatorioConsulta {
             this.relatorio += "\n-------------------------------";
         }else{
             this.relatorio = "-------------------------------"
-                    + "\n    RELATORIO DE CONSULTAS"
                     + "\n- Consultas para o dia seguinte"
                     + "\n- Pacientes SEM Info de Contado";
             for (Consulta consulta : Dados.listaConsultas) {
@@ -64,6 +63,7 @@ public class RelatorioConsulta {
             }
             this.relatorio += "\n-------------------------------";
         }
+        return this.relatorio;
     }
 
 }

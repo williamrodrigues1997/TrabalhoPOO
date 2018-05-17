@@ -6,6 +6,7 @@ import java.util.Scanner;
 import secretaria.Convenio;
 import secretaria.Paciente;
 import secretaria.Secretaria;
+import secretaria.TipoConsulta;
 
 public class MenuSecretaria {
 
@@ -38,10 +39,10 @@ public class MenuSecretaria {
         criarBorda("Escolha a opção desejada");
         System.out.println("1) Cadastrar Paciente");
         System.out.println("2) Editar Paciente");
-        System.out.println("3) Remover Paciente");
-        System.out.println("4) Cadastar Consulta");
+        System.out.println("3) Excluir Paciente");
+        System.out.println("4) Agendar Consulta");
         System.out.println("5) Editar Consulta");
-        System.out.println("6) Remover Consulta");
+        System.out.println("6) Excluir Consulta");
         System.out.println("7) Listar Pacientes Cadastrados");
         System.out.println("8) Gerar Relatórios de Consulta");
         System.out.println("0) Sair do sistema");
@@ -80,7 +81,7 @@ public class MenuSecretaria {
                 //Implementar
                 break;
             case 4:
-                //Implementar
+                cadastrarConsulta();
                 break;
             case 5:
                 //Implementar
@@ -92,7 +93,7 @@ public class MenuSecretaria {
                 listarPacientes();
                 break;
             case 8:
-                //Implementar
+                gerarRelatorioConsultas();
                 break;
             default:
                 System.out.println("Erro desconhecido.");
@@ -139,7 +140,10 @@ public class MenuSecretaria {
     private Convenio getOpcaoConvenio() {
         int opcao = -1;
         do {
-            System.out.print("Convenio (1-Particular/2-Plano de Saúde): ");
+            System.out.println("Selecione o convênio" 
+                    + "\n1) Particular" 
+                    + "\n2) Plano de Saúde");
+            System.out.print("Opção: ");
             try {
                 opcao = Integer.parseInt(leitor.nextLine());
             } catch (NumberFormatException e) {
@@ -164,5 +168,91 @@ public class MenuSecretaria {
             System.out.println(paciente.toString());
             System.out.println("+----------------------------------------+");
         }
+    }
+
+    private void gerarRelatorioConsultas() {
+        criarBorda("RELATÓRIO DE CONSULTAS");
+        int opcao = getOpcaoRelatorio();
+        if(opcao==1){
+            System.out.println(secretaria.getRelatorioConsulta().gerarRelatorio(true));
+        }else{
+            System.out.println(secretaria.getRelatorioConsulta().gerarRelatorio(false));
+        }
+    }
+
+    private int getOpcaoRelatorio() {
+        int opcao = -1;
+        do {
+            System.out.println("  Selecione o filtro desejado" 
+                    + "\n1) Pacientes COM info de contato" 
+                    + "\n2) Pacientes SEM info de contato");
+            System.out.print("Opção: ");
+            try {
+                opcao = Integer.parseInt(leitor.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Opção inválida. Apenas números.");
+            }
+            if (opcao < 1 || opcao > 2) {
+                System.out.println("Opção inválida. Não está no menu.");
+            }
+        } while (opcao < 1 || opcao > 2);
+        return opcao;
+    }
+    
+    private void cadastrarConsulta() throws ParseException{
+        criarBorda("CADASTRO DE CONSULTA");
+        System.out.print("Data: ");
+        String data = leitor.nextLine();
+        System.out.print("Horário: ");
+        String horario = leitor.nextLine();
+        System.out.print("Médico: ");
+        String medico = leitor.nextLine();
+        int IdPaciente = getOpcaoIdPaciente();
+        Paciente paciente = secretaria.getGerenciarPacientes().getLista().get(IdPaciente-1);
+        TipoConsulta tipoConsulta = getOpcaoTipoConsulta();
+        
+        secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse(data), horario, medico, paciente, tipoConsulta);
+        System.out.println("Consulta agendada com sucesso!");
+    }
+
+    private TipoConsulta getOpcaoTipoConsulta() {
+        int opcao = -1;
+        do {
+            System.out.println("Selecione o tipo de consulta" 
+                    + "\n1) Consulta normal (1h)" 
+                    + "\n2) Consulta de retorno (30m)");
+            System.out.print("Opção: ");
+            try {
+                opcao = Integer.parseInt(leitor.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Opção inválida. Apenas números.");
+            }
+            if (opcao < 1 || opcao > 2) {
+                System.out.println("Opção inválida. Não está no menu.");
+            }
+        } while (opcao < 1 || opcao > 2);
+
+        if (opcao == 1) {
+            return TipoConsulta.NORMAL;
+        } else {
+            return TipoConsulta.RETORNO;
+        }
+    }
+    
+    private int getOpcaoIdPaciente(){
+        int IdPaciente = -1;
+        do {
+            System.out.print("ID do Paciente: ");
+            try {
+                IdPaciente = Integer.parseInt(leitor.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("ID inválido. Apenas números.");
+            }
+            if (IdPaciente < 1 || IdPaciente > secretaria.getGerenciarPacientes().getLista().size()) {
+                System.out.println("ID inválido. Não está na lista.");
+            }
+        } while (IdPaciente < 1 || IdPaciente > secretaria.getGerenciarPacientes().getLista().size());
+        
+        return IdPaciente;
     }
 }
