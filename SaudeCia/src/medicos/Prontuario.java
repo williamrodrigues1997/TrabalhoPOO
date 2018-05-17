@@ -8,6 +8,7 @@ public class Prontuario {
     //Atributos
     private Integer id;
     private Paciente paciente;
+    private String medico;
     private String sintomas;
     private String diagnosticoDoenca;
     private String prescricaoTratamento;
@@ -32,6 +33,14 @@ public class Prontuario {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+
+    public String getMedico() {
+        return medico;
+    }
+
+    public void setMedico(String medico) {
+        this.medico = medico;
+    }   
 
     public String getSintomas() {
         return sintomas;

@@ -4,6 +4,7 @@ public class RelatorioMedico {
 
     //Atributos
     private String relatorio;
+    private Medico medico;
 
     //Construtor
     public RelatorioMedico() {
@@ -14,20 +15,12 @@ public class RelatorioMedico {
         return relatorio;
     }
 
-    public void gerarReceita() {
-//        this.relatorio = "Identificação do Médico"
-//                + "\n" + "Nome:" + dados.Dados.listaConsultas.get(0).getMedico()
-//                + "\nCRM: 456464"
-//                + "\nIdentificação do Paciente"
-//                + "\nNome: " + dados.Dados.listaConsultas.get(0).getPaciente().getNome()
-//                + "\nEndereço: " + dados.Dados.listaConsultas.get(0).getPaciente().getEndereco()
-//                + "\nPrescrição: " + dados.Dados.listaProntuarios.get(0).getPrescricaoTratamento();
-
-//Nome do médico
-//Nome do Paciente
-//Prescrição
-//Data Receita = Data Consulta
-
+    public void gerarReceita(int prontuario) {
+        this.relatorio = "Receita"
+                + "Medico: " + medico.getGerenciarProntuarios().getLista().get(prontuario).getMedico()
+                + "Pciente: " + medico.getGerenciarProntuarios().getLista().get(prontuario).getPaciente()
+                + "Prescrição: " + medico.getGerenciarProntuarios().getLista().get(prontuario).getPrescricaoTratamento()
+                + "Data: 'data da consulta";
     }
 
     public void gerarDeclaracaoAcompanhante() {

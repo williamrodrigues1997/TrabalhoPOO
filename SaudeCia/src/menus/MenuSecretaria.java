@@ -140,8 +140,8 @@ public class MenuSecretaria {
     private Convenio getOpcaoConvenio() {
         int opcao = -1;
         do {
-            System.out.println("Selecione o convênio" 
-                    + "\n1) Particular" 
+            System.out.println("Selecione o convênio"
+                    + "\n1) Particular"
                     + "\n2) Plano de Saúde");
             System.out.print("Opção: ");
             try {
@@ -173,9 +173,9 @@ public class MenuSecretaria {
     private void gerarRelatorioConsultas() {
         criarBorda("RELATÓRIO DE CONSULTAS");
         int opcao = getOpcaoRelatorio();
-        if(opcao==1){
+        if (opcao == 1) {
             System.out.println(secretaria.getRelatorioConsulta().gerarRelatorio(true));
-        }else{
+        } else {
             System.out.println(secretaria.getRelatorioConsulta().gerarRelatorio(false));
         }
     }
@@ -183,8 +183,8 @@ public class MenuSecretaria {
     private int getOpcaoRelatorio() {
         int opcao = -1;
         do {
-            System.out.println("  Selecione o filtro desejado" 
-                    + "\n1) Pacientes COM info de contato" 
+            System.out.println("  Selecione o filtro desejado"
+                    + "\n1) Pacientes COM info de contato"
                     + "\n2) Pacientes SEM info de contato");
             System.out.print("Opção: ");
             try {
@@ -198,28 +198,34 @@ public class MenuSecretaria {
         } while (opcao < 1 || opcao > 2);
         return opcao;
     }
-    
-    private void cadastrarConsulta() throws ParseException{
-        criarBorda("CADASTRO DE CONSULTA");
-        System.out.print("Data: ");
-        String data = leitor.nextLine();
-        System.out.print("Horário: ");
-        String horario = leitor.nextLine();
-        System.out.print("Médico: ");
-        String medico = leitor.nextLine();
-        int IdPaciente = getOpcaoIdPaciente();
-        Paciente paciente = secretaria.getGerenciarPacientes().getLista().get(IdPaciente-1);
-        TipoConsulta tipoConsulta = getOpcaoTipoConsulta();
-        
-        secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse(data), horario, medico, paciente, tipoConsulta);
-        System.out.println("Consulta agendada com sucesso!");
+
+    private void cadastrarConsulta() throws ParseException {
+        if (secretaria.getGerenciarPacientes().getLista().size() != 0) {
+            criarBorda("CADASTRO DE CONSULTA");
+            System.out.print("Data: ");
+            String data = leitor.nextLine();
+            System.out.print("Horário: ");
+            String horario = leitor.nextLine();
+            System.out.print("Médico: ");
+            String medico = leitor.nextLine();
+            int IdPaciente = getOpcaoIdPaciente();
+            Paciente paciente = secretaria.getGerenciarPacientes().getLista().get(IdPaciente - 1);
+            TipoConsulta tipoConsulta = getOpcaoTipoConsulta();
+
+            secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse(data), horario, medico, paciente, tipoConsulta);
+            System.out.println("Consulta agendada com sucesso!");
+        } else {
+            System.out.println("\nNão existem pacientes cadastrados,\n"
+                    + " Adicione pelo menos um");
+        }
+
     }
 
     private TipoConsulta getOpcaoTipoConsulta() {
         int opcao = -1;
         do {
-            System.out.println("Selecione o tipo de consulta" 
-                    + "\n1) Consulta normal (1h)" 
+            System.out.println("Selecione o tipo de consulta"
+                    + "\n1) Consulta normal (1h)"
                     + "\n2) Consulta de retorno (30m)");
             System.out.print("Opção: ");
             try {
@@ -238,8 +244,8 @@ public class MenuSecretaria {
             return TipoConsulta.RETORNO;
         }
     }
-    
-    private int getOpcaoIdPaciente(){
+
+    private int getOpcaoIdPaciente() {
         int IdPaciente = -1;
         do {
             System.out.print("ID do Paciente: ");
@@ -252,7 +258,7 @@ public class MenuSecretaria {
                 System.out.println("ID inválido. Não está na lista.");
             }
         } while (IdPaciente < 1 || IdPaciente > secretaria.getGerenciarPacientes().getLista().size());
-        
+
         return IdPaciente;
     }
 }
