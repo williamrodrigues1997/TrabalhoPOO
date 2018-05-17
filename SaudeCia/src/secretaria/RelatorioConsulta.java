@@ -34,7 +34,7 @@ public class RelatorioConsulta {
      */
     public String gerarRelatorio(boolean opcao) {
         Calendar calendario = Calendar.getInstance(); //Intancia um calendario
-        calendario.add(Calendar.DATE, 1); //Adiciona 1 dia a data de hoje
+        calendario.add(Calendar.DATE, 2); //Adiciona 1 dia a data de hoje
 
         if (opcao) {
             this.relatorio = "-------------------------------"

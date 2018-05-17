@@ -6,9 +6,11 @@ public class Medico {
 
     private DAODadosAdicionaisPaciente gerenciarDadosAdicionaisPacientes = new DAODadosAdicionaisPaciente();
     private DAOProntuario gerenciarProntuarios = new DAOProntuario();
+    private RelatorioMedico gerenciarRelatorios = new RelatorioMedico();
 
     //Construtor
     public Medico() {
+        
     }
 
     //Metodos
@@ -27,6 +29,14 @@ public class Medico {
     public void setGerenciarProntuarios(DAOProntuario gerenciarProntuarios) {
         this.gerenciarProntuarios = gerenciarProntuarios;
     }
-    
+
+    public RelatorioMedico getGerenciarRelatorios() {
+        return gerenciarRelatorios;
+    }
+
+    public void setGerenciarRelatorios(RelatorioMedico gerenciarRelatorios) {
+        this.gerenciarRelatorios = gerenciarRelatorios;
+    }
+     
         
 }

@@ -69,7 +69,7 @@ public class Consulta {
         return "Data: "+ Datas.formatoData.format(this.data) 
                 + "\nHorario: " + this.horario
                 + "\nMedico: " + this.medico
-                + "\nPaciente: " +this.paciente.getNome()
+                + "\nPaciente: " + this.paciente.getNome()
                 + "\nTipo: " + this.tipo.getDescricao();
     }
     
