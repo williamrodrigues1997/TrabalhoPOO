@@ -3,8 +3,11 @@ package menus;
 import dados.Datas;
 import java.text.ParseException;
 import java.util.Scanner;
+import medicos.Medico;
+import medicos.RelatorioMedico;
 import secretaria.Convenio;
 import secretaria.Paciente;
+import secretaria.RelatorioConsulta;
 import secretaria.Secretaria;
 import secretaria.TipoConsulta;
 
@@ -75,7 +78,8 @@ public class MenuSecretaria {
                 cadastrarPaciente();
                 break;
             case 2:
-                //Implementar
+                Medico relatorio = new Medico();
+                System.out.println(relatorio.getGerenciarRelatorios().gerarClientesAtendidosMes());
                 break;
             case 3:
                 //Implementar
@@ -174,9 +178,9 @@ public class MenuSecretaria {
         criarBorda("RELATÓRIO DE CONSULTAS");
         int opcao = getOpcaoRelatorio();
         if (opcao == 1) {
-            System.out.println(secretaria.getRelatorioConsulta().gerarRelatorio(true));
+            System.out.println(secretaria.getRelatorioConsulta().gerarRelatorio(true, 1));
         } else {
-            System.out.println(secretaria.getRelatorioConsulta().gerarRelatorio(false));
+            System.out.println(secretaria.getRelatorioConsulta().gerarRelatorio(false, 1));
         }
     }
 

@@ -33,9 +33,9 @@ public class RelatorioConsulta {
      * Retorna um relatório (String) armazenado no atributo relatorio
      * das consultas agendadas para o dia seguinte
      */
-    public String gerarRelatorio(boolean opcao) {
+    public String gerarRelatorio(boolean opcao, int numDias) {
         Calendar calendario = Calendar.getInstance(); //Intancia um calendario
-        calendario.add(Calendar.DATE, 1); //Adiciona 1 dia a data de hoje
+        calendario.add(Calendar.DATE, numDias); //Adiciona numDias dia(s) a data de hoje
 
         if (opcao) {
             this.relatorio = "-------------------------------"
