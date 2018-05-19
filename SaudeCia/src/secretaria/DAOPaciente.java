@@ -51,4 +51,14 @@ public class DAOPaciente {
         int posicao = id-1;
         Dados.listaPacientes.remove(posicao);
     }
+    
+    public Paciente getPacientePorCpf(String Cpf){
+        for(Paciente paciente: Dados.listaPacientes){
+            if(paciente.getCpf().equals(Cpf)){
+                return paciente;
+            }
+        }
+        return null;
+    }
+    
 }

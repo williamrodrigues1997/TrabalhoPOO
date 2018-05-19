@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.Scanner;
 import medicos.Medico;
 import medicos.RelatorioMedico;
+import secretaria.Consulta;
 import secretaria.Convenio;
 import secretaria.Paciente;
 import secretaria.RelatorioConsulta;
@@ -45,9 +46,10 @@ public class MenuSecretaria {
         System.out.println("3) Excluir Paciente");
         System.out.println("4) Agendar Consulta");
         System.out.println("5) Editar Consulta");
-        System.out.println("6) Excluir Consulta");
+        System.out.println("6) Desmarcar Consulta");
         System.out.println("7) Listar Pacientes Cadastrados");
-        System.out.println("8) Gerar Relatórios de Consulta");
+        System.out.println("8) Listar Consultas Agendadas");
+        System.out.println("9) Gerar Relatórios de Consulta");
         System.out.println("0) Sair do sistema");
     }
 
@@ -71,7 +73,7 @@ public class MenuSecretaria {
     private void executarAcao(int choice) throws ParseException {
         switch (choice) {
             case 0:
-                System.out.println("Obrigado por usar o Sistema.");
+                System.out.println("\nObrigado por usar o Sistema.");
                 System.exit(0);
                 break;
             case 1:
@@ -82,7 +84,7 @@ public class MenuSecretaria {
                 System.out.println(relatorio.getGerenciarRelatorios().gerarClientesAtendidosMes());
                 break;
             case 3:
-                //Implementar
+                excluirPaciente();
                 break;
             case 4:
                 cadastrarConsulta();
@@ -91,12 +93,15 @@ public class MenuSecretaria {
                 //Implementar
                 break;
             case 6:
-                //Implementar
+                desmarcarConsulta();
                 break;
             case 7:
                 listarPacientes();
                 break;
             case 8:
+                listarConsultas();
+                break;
+            case 9:
                 gerarRelatorioConsultas();
                 break;
             default:
@@ -137,7 +142,7 @@ public class MenuSecretaria {
         Convenio conveio = getOpcaoConvenio();
 
         secretaria.getGerenciarPacientes().inserir(nome, cpf, rg, Datas.formatoData.parse(dataNascimento), endereco, celular, email, conveio);
-        System.out.println("\nPaciente " + nome + " cadastrado com sucesso!");
+        System.out.println("\nPaciente " + nome + "\ncadastrado com sucesso!");
 
     }
 
@@ -173,6 +178,15 @@ public class MenuSecretaria {
             System.out.println("+----------------------------------------+");
         }
     }
+    
+    private void listarConsultas() {
+        criarBorda("CONSULTAS AGENDADAS");
+        System.out.println("+----------------------------------------+");
+        for (Consulta consulta : secretaria.getGerenciarConsultas().getLista()) {
+            System.out.println(consulta.toString());
+            System.out.println("+----------------------------------------+");
+        }
+    }
 
     private void gerarRelatorioConsultas() {
         criarBorda("RELATÓRIO DE CONSULTAS");
@@ -204,7 +218,7 @@ public class MenuSecretaria {
     }
 
     private void cadastrarConsulta() throws ParseException {
-        if (secretaria.getGerenciarPacientes().getLista().size() != 0) {
+        if (!secretaria.getGerenciarPacientes().getLista().isEmpty()) {
             criarBorda("CADASTRO DE CONSULTA");
             System.out.print("Data: ");
             String data = leitor.nextLine();
@@ -212,15 +226,14 @@ public class MenuSecretaria {
             String horario = leitor.nextLine();
             System.out.print("Médico: ");
             String medico = leitor.nextLine();
-            int IdPaciente = getOpcaoIdPaciente();
-            Paciente paciente = secretaria.getGerenciarPacientes().getLista().get(IdPaciente - 1);
+            Paciente paciente = getOpcaoCpfPaciente();
             TipoConsulta tipoConsulta = getOpcaoTipoConsulta();
 
             secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse(data), horario, medico, paciente, tipoConsulta);
-            System.out.println("Consulta agendada com sucesso!");
+            System.out.println("\nConsulta agendada com sucesso!");
         } else {
             System.out.println("\nNão existem pacientes cadastrados,\n"
-                    + " Adicione pelo menos um");
+                    + "adicione pelo menos um.");
         }
 
     }
@@ -249,6 +262,21 @@ public class MenuSecretaria {
         }
     }
 
+    private Paciente getOpcaoCpfPaciente() {
+        Paciente paciente;
+        String cpf;
+        do {
+            System.out.print("CPF do paciente: ");
+            cpf = leitor.nextLine();
+            paciente = secretaria.getGerenciarPacientes().getPacientePorCpf(cpf);
+            if (paciente == null) {
+                System.out.println("Nenhum resultado para o CPF " + cpf);
+            }
+        } while (paciente == null);
+
+        return paciente;
+    }
+
     private int getOpcaoIdPaciente() {
         int IdPaciente = -1;
         do {
@@ -265,4 +293,72 @@ public class MenuSecretaria {
 
         return IdPaciente;
     }
+
+    private void excluirPaciente() {
+        criarBorda("EXCLUIR PACIENTE");
+        Paciente paciente = getOpcaoCpfPaciente();
+        System.out.println("\nTem certeza de que deseja excluir\n" 
+                + "o pacente " + paciente.getNome() + " ?");
+        int opcao = getOpcaoConfirmacao();
+        if (opcao == 1) {
+            System.out.println("\nPaciente " + paciente.getNome() + "\nexcluído do sistema.");
+            secretaria.getGerenciarPacientes().remover(paciente.getId());
+        } else {
+            System.out.println("\nProcedimento de exclusão cancelado.");
+        }
+    }
+
+    private int getOpcaoConfirmacao() {
+        int opcao = -1;
+        do {
+            System.out.println("\n1) Confrimar"
+                    + "\n2) Cancelar");
+            System.out.print("Opção: ");
+            try {
+                opcao = Integer.parseInt(leitor.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Opção inválida. Apenas números.");
+            }
+            if (opcao < 1 || opcao > 2) {
+                System.out.println("Opção inválida. Não está no menu.");
+            }
+        } while (opcao < 1 || opcao > 2);
+
+        return opcao;
+    }
+    
+    private void desmarcarConsulta(){
+        criarBorda("DESMARCAR CONSULTA");
+        int idConsulta = getOpcaoIdConsulta();
+        Consulta consulta = secretaria.getGerenciarConsultas().getLista().get(idConsulta-1);
+        
+        
+        System.out.println("\nTem certeza de que deseja desmarcar:\n" 
+                + consulta.toString());
+        int opcao = getOpcaoConfirmacao();
+        if(opcao==1){
+            System.out.println("\nConsulta desmarcada com sucesso.");
+            secretaria.getGerenciarConsultas().remover(idConsulta);
+        }else {
+            System.out.println("\nProcedimento cancelado.");
+        }
+    }
+    
+    private int getOpcaoIdConsulta() {
+        int idConsulta = -1;
+        do {
+            System.out.print("ID da Consulta: ");
+            try {
+                idConsulta = Integer.parseInt(leitor.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("ID inválido. Apenas números.");
+            }
+            if (idConsulta < 1 || idConsulta > secretaria.getGerenciarConsultas().getLista().size()) {
+                System.out.println("ID inválido. Não está na lista.");
+            }
+        } while (idConsulta < 1 || idConsulta > secretaria.getGerenciarConsultas().getLista().size());
+
+        return idConsulta;
+    }
+    
 }

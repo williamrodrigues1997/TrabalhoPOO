@@ -17,7 +17,7 @@ public class DAOConsulta {
         Consulta consulta = new Consulta();
         
         if(consulta.getId()==null){ //Caso seja uma nova consulta
-             paciente.setId(Dados.listaConsultas.size()+1); //Gera um novo codigo para ela
+             consulta.setId(Dados.listaConsultas.size()+1); //Gera um novo codigo para ela
         }
         //Insere os dados da Consulta
         consulta.setData(data);

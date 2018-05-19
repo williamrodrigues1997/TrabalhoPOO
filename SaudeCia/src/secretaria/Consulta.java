@@ -24,6 +24,10 @@ public class Consulta {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }    
+
     public Date getData() {
         return data;
     }
@@ -66,7 +70,8 @@ public class Consulta {
 
     @Override
     public String toString(){
-        return "Data: "+ Datas.formatoData.format(this.data) 
+        return "ID: " + this.id 
+                + "\nData: "+ Datas.formatoData.format(this.data) 
                 + "\nHorario: " + this.horario
                 + "\nMedico: " + this.medico
                 + "\nPaciente: " + this.paciente.getNome()
