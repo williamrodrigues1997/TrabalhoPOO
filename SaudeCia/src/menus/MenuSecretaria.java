@@ -4,8 +4,6 @@ import dados.Datas;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import secretaria.Consulta;
 import secretaria.Convenio;
 import secretaria.Paciente;
@@ -20,7 +18,7 @@ public class MenuSecretaria {
     private final Secretaria secretaria = new Secretaria();
 
     //Metodos
-    public void executarMenu(){
+    public void executarMenu() {
         printCabecalho();
         while (!exit) {
             printMenu();
@@ -70,7 +68,7 @@ public class MenuSecretaria {
         return opcao;
     }
 
-    private void executarAcao(int choice){
+    private void executarAcao(int choice) {
         switch (choice) {
             case 0:
                 System.out.println("\nObrigado por usar o Sistema.");
@@ -124,15 +122,11 @@ public class MenuSecretaria {
 
     private void cadastrarPaciente() {
         criarBorda("CADASTRO DE PACIENTE");
-        System.out.print("Nome: ");
-        String nome = leitor.nextLine();
-        System.out.print("CPF: ");
-        String cpf = leitor.nextLine();
-        System.out.print("RG: ");
-        String rg = leitor.nextLine();
+        String nome = campoObrigatorioString("Nome: ");
+        String cpf = campoObrigatorioString("CPF: ");
+        String rg = campoObrigatorioString("RG: ");
         Date dataNascimento = getOpcaoData("Data de Nascimento: ");
-        System.out.print("Endereço: ");
-        String endereco = leitor.nextLine();
+        String endereco = campoObrigatorioString("Endereço: ");
         System.out.print("Telefone Celular: ");
         String celular = leitor.nextLine();
         System.out.print("E-mail: ");
@@ -231,10 +225,8 @@ public class MenuSecretaria {
         if (!secretaria.getGerenciarPacientes().getLista().isEmpty()) {
             criarBorda("CADASTRO DE CONSULTA");
             Date data = getOpcaoData("Data: ");
-            System.out.print("Horário: ");
-            String horario = leitor.nextLine();
-            System.out.print("Médico: ");
-            String medico = leitor.nextLine();
+            String horario = campoObrigatorioString("Horário: ");
+            String medico = campoObrigatorioString("Médico: ");
             Paciente paciente = getOpcaoCpfPaciente();
             TipoConsulta tipoConsulta = getOpcaoTipoConsulta();
 
@@ -284,23 +276,6 @@ public class MenuSecretaria {
         } while (paciente == null);
 
         return paciente;
-    }
-
-    private int getOpcaoIdPaciente() {
-        int IdPaciente = -1;
-        do {
-            System.out.print("ID do Paciente: ");
-            try {
-                IdPaciente = Integer.parseInt(leitor.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("ID inválido. Apenas números.");
-            }
-            if (IdPaciente < 1 || IdPaciente > secretaria.getGerenciarPacientes().getLista().size()) {
-                System.out.println("ID inválido. Não está na lista.");
-            }
-        } while (IdPaciente < 1 || IdPaciente > secretaria.getGerenciarPacientes().getLista().size());
-
-        return IdPaciente;
     }
 
     private void excluirPaciente() {
@@ -387,8 +362,7 @@ public class MenuSecretaria {
             String cpf = paciente.getCpf();
             String rg = paciente.getRg();
             Date dataNascimento = paciente.getDataNascimento();
-            System.out.print("Endereço: ");
-            String endereco = leitor.nextLine();
+            String endereco = campoObrigatorioString("Endereço: ");
             System.out.print("Telefone Celular: ");
             String celular = leitor.nextLine();
             System.out.print("E-mail: ");
@@ -396,8 +370,8 @@ public class MenuSecretaria {
             Convenio conveio = getOpcaoConvenio();
 
             secretaria.getGerenciarPacientes().alterar(id, nome, cpf, rg, dataNascimento, endereco, celular, email, conveio);
-            
-            paciente = secretaria.getGerenciarPacientes().getLista().get(id-1);
+
+            paciente = secretaria.getGerenciarPacientes().getLista().get(id - 1);
             System.out.println("\nPaciente editado com sucesso!"
                     + "\nDados atualizados:\n" + paciente.toString());
         } else {
@@ -412,15 +386,13 @@ public class MenuSecretaria {
             Consulta consulta = secretaria.getGerenciarConsultas().getLista().get(idConsulta - 1);
 
             Date data = getOpcaoData("Data: ");
-            System.out.print("Horário: ");
-            String horario = leitor.nextLine();
-            System.out.print("Médico: ");
-            String medico = leitor.nextLine();
+            String horario = campoObrigatorioString("Horário: ");
+            String medico = campoObrigatorioString("Médico: ");
             Paciente paciente = consulta.getPaciente();
             TipoConsulta tipoConsulta = consulta.getTipo();
 
             secretaria.getGerenciarConsultas().alterar(idConsulta, data, horario, medico, paciente, tipoConsulta);
-            
+
             consulta = secretaria.getGerenciarConsultas().getLista().get(idConsulta - 1);
             System.out.println("\nConsulta editada com sucesso!"
                     + "\nDados atualizados:\n" + consulta.toString());
@@ -445,6 +417,20 @@ public class MenuSecretaria {
             }
         }
         return data;
+    }
+
+    private String campoObrigatorioString(String solicitando) {
+        String campo;
+        while (true) {
+            System.out.print(solicitando);
+            campo = leitor.nextLine();
+            if (campo.length() == 0) {
+                System.out.println("O campo é obrigatório.");
+            } else {
+                break;
+            }
+        }
+        return campo;
     }
 
 }
