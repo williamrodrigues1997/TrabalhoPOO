@@ -425,7 +425,8 @@ public class MenuSecretaria {
             System.out.print(solicitando);
             campo = leitor.nextLine();
             if (campo.length() == 0) {
-                System.out.println("O campo é obrigatório.");
+                System.out.println("O campo " + solicitando.substring(0, solicitando.length() - 2)
+                        + " é obrigatório.");
             } else {
                 break;
             }
