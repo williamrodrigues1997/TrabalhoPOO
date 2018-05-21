@@ -4,6 +4,8 @@ import dados.Datas;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import secretaria.Consulta;
 import secretaria.Convenio;
 import secretaria.Paciente;
@@ -18,7 +20,7 @@ public class MenuSecretaria {
     private final Secretaria secretaria = new Secretaria();
 
     //Metodos
-    public void executarMenu() throws ParseException {
+    public void executarMenu(){
         printCabecalho();
         while (!exit) {
             printMenu();
@@ -68,7 +70,7 @@ public class MenuSecretaria {
         return opcao;
     }
 
-    private void executarAcao(int choice) throws ParseException {
+    private void executarAcao(int choice){
         switch (choice) {
             case 0:
                 System.out.println("\nObrigado por usar o Sistema.");
@@ -120,7 +122,7 @@ public class MenuSecretaria {
         System.out.println(sb.toString());
     }
 
-    private void cadastrarPaciente() throws ParseException {
+    private void cadastrarPaciente() {
         criarBorda("CADASTRO DE PACIENTE");
         System.out.print("Nome: ");
         String nome = leitor.nextLine();
@@ -128,8 +130,7 @@ public class MenuSecretaria {
         String cpf = leitor.nextLine();
         System.out.print("RG: ");
         String rg = leitor.nextLine();
-        System.out.print("Data de Nascimento: ");
-        String dataNascimento = leitor.nextLine();
+        Date dataNascimento = getOpcaoData("Data de Nascimento: ");
         System.out.print("Endereço: ");
         String endereco = leitor.nextLine();
         System.out.print("Telefone Celular: ");
@@ -138,7 +139,7 @@ public class MenuSecretaria {
         String email = leitor.nextLine();
         Convenio conveio = getOpcaoConvenio();
 
-        secretaria.getGerenciarPacientes().inserir(nome, cpf, rg, Datas.formatoData.parse(dataNascimento), endereco, celular, email, conveio);
+        secretaria.getGerenciarPacientes().inserir(nome, cpf, rg, dataNascimento, endereco, celular, email, conveio);
         System.out.println("\nPaciente " + nome + "\nCadastrado com sucesso!");
 
     }
@@ -146,7 +147,7 @@ public class MenuSecretaria {
     private Convenio getOpcaoConvenio() {
         int opcao = -1;
         do {
-            System.out.println("Selecione o convênio"
+            System.out.println("Selecione o convênio:"
                     + "\n1) Particular"
                     + "\n2) Plano de Saúde");
             System.out.print("Opção: ");
@@ -210,7 +211,7 @@ public class MenuSecretaria {
     private int getOpcaoRelatorio() {
         int opcao = -1;
         do {
-            System.out.println("  Selecione o filtro desejado"
+            System.out.println("  Selecione o filtro desejado:"
                     + "\n1) Pacientes COM info de contato"
                     + "\n2) Pacientes SEM info de contato");
             System.out.print("Opção: ");
@@ -226,11 +227,10 @@ public class MenuSecretaria {
         return opcao;
     }
 
-    private void cadastrarConsulta() throws ParseException {
+    private void cadastrarConsulta() {
         if (!secretaria.getGerenciarPacientes().getLista().isEmpty()) {
             criarBorda("CADASTRO DE CONSULTA");
-            System.out.print("Data: ");
-            String data = leitor.nextLine();
+            Date data = getOpcaoData("Data: ");
             System.out.print("Horário: ");
             String horario = leitor.nextLine();
             System.out.print("Médico: ");
@@ -238,7 +238,7 @@ public class MenuSecretaria {
             Paciente paciente = getOpcaoCpfPaciente();
             TipoConsulta tipoConsulta = getOpcaoTipoConsulta();
 
-            secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse(data), horario, medico, paciente, tipoConsulta);
+            secretaria.getGerenciarConsultas().inserir(data, horario, medico, paciente, tipoConsulta);
             System.out.println("\nConsulta agendada com sucesso!");
         } else {
             System.out.println("\nAinda não existem pacientes cadastrados no sistema,"
@@ -250,7 +250,7 @@ public class MenuSecretaria {
     private TipoConsulta getOpcaoTipoConsulta() {
         int opcao = -1;
         do {
-            System.out.println("Selecione o tipo de consulta"
+            System.out.println("Selecione o tipo de consulta:"
                     + "\n1) Consulta normal (1h)"
                     + "\n2) Consulta de retorno (30m)");
             System.out.print("Opção: ");
@@ -396,6 +396,8 @@ public class MenuSecretaria {
             Convenio conveio = getOpcaoConvenio();
 
             secretaria.getGerenciarPacientes().alterar(id, nome, cpf, rg, dataNascimento, endereco, celular, email, conveio);
+            
+            paciente = secretaria.getGerenciarPacientes().getLista().get(id-1);
             System.out.println("\nPaciente editado com sucesso!"
                     + "\nDados atualizados:\n" + paciente.toString());
         } else {
@@ -403,14 +405,13 @@ public class MenuSecretaria {
         }
     }
 
-    private void editarConsulta() throws ParseException {
+    private void editarConsulta() {
         if (!secretaria.getGerenciarConsultas().getLista().isEmpty()) {
             criarBorda("EDITAR CONSULTA");
             int idConsulta = getOpcaoIdConsulta();
             Consulta consulta = secretaria.getGerenciarConsultas().getLista().get(idConsulta - 1);
 
-            System.out.print("Data: ");
-            String data = leitor.nextLine();
+            Date data = getOpcaoData("Data: ");
             System.out.print("Horário: ");
             String horario = leitor.nextLine();
             System.out.print("Médico: ");
@@ -418,12 +419,32 @@ public class MenuSecretaria {
             Paciente paciente = consulta.getPaciente();
             TipoConsulta tipoConsulta = consulta.getTipo();
 
-            secretaria.getGerenciarConsultas().alterar(idConsulta, Datas.formatoData.parse(data), horario, medico, paciente, tipoConsulta);
+            secretaria.getGerenciarConsultas().alterar(idConsulta, data, horario, medico, paciente, tipoConsulta);
+            
+            consulta = secretaria.getGerenciarConsultas().getLista().get(idConsulta - 1);
             System.out.println("\nConsulta editada com sucesso!"
                     + "\nDados atualizados:\n" + consulta.toString());
         } else {
             System.out.println("\nAinda não existem consultas cadastradas no sistema.");
         }
+    }
+
+    private Date getOpcaoData(String solicitando) {
+        boolean sucesso = false;
+        Date data = new Date();
+
+        while (!sucesso) {
+            System.out.print(solicitando);
+            String dataString = leitor.nextLine();
+
+            try {
+                data = Datas.formatoData.parse(dataString);
+                sucesso = true;
+            } catch (ParseException ex) {
+                System.out.println("Data inválida, digite no formato Dia/Mês/Ano");
+            }
+        }
+        return data;
     }
 
 }
