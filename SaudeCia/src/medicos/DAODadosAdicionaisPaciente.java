@@ -32,6 +32,7 @@ public class DAODadosAdicionaisPaciente {
     public void alterar(Integer id, Paciente paciente, boolean fuma, boolean bebe, boolean colesterol, boolean diabete, boolean doencaCardiaca, List<String> cirurgias, List<String> alergias) {
         DadosAdicionaisPaciente dadosAdicionaisPaciente = new DadosAdicionaisPaciente();
         
+        dadosAdicionaisPaciente.setId(id);
         dadosAdicionaisPaciente.setPaciente(paciente);
         dadosAdicionaisPaciente.setFuma(fuma);
         dadosAdicionaisPaciente.setBebe(bebe);

@@ -32,6 +32,7 @@ public class DAOConsulta {
     public void alterar(Integer id, Date data, String horario, String medico, Paciente paciente, TipoConsulta tipo){
         Consulta consulta = new Consulta();
         
+        consulta.setId(id);
         consulta.setData(data);
         consulta.setHorario(horario);
         consulta.setMedico(medico);

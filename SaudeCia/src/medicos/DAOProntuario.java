@@ -28,6 +28,7 @@ public class DAOProntuario {
     public void alterar(Integer id, Paciente paciente, String sintomas, String diagnosticoDoenca, String prescricaoTratamento){
         Prontuario prontuario = new Prontuario();
         
+        prontuario.setId(id);
         prontuario.setPaciente(paciente);
         prontuario.setSintomas(sintomas);
         prontuario.setDiagnosticoDoenca(diagnosticoDoenca);

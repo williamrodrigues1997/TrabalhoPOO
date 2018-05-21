@@ -34,6 +34,7 @@ public class DAOPaciente {
     public void alterar(Integer id, String nome, String cpf, String rg, Date dataNascimento, String endereco, String telefoneCelular, String email, Convenio tipoConvenio){
         Paciente paciente = new Paciente();
         
+        paciente.setId(id);
         paciente.setNome(nome);
         paciente.setCpf(cpf);
         paciente.setRg(rg);
