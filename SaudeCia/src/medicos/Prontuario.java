@@ -1,5 +1,6 @@
 package medicos;
 
+import java.util.Date;
 import java.util.Objects;
 import secretaria.Paciente;
 
@@ -8,6 +9,8 @@ public class Prontuario {
     //Atributos
     private Integer id;
     private Paciente paciente;
+    private Date data;
+    private String Cpf;
     private String medico;
     private String sintomas;
     private String diagnosticoDoenca;
@@ -32,6 +35,22 @@ public class Prontuario {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getCpf() {
+        return Cpf;
+    }
+
+    public void setCpf(String Cpf) {
+        this.Cpf = Cpf;
     }
 
     public String getMedico() {
