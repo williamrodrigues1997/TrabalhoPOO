@@ -119,6 +119,7 @@ public abstract class Menu {
         return campo;
     }
     
+    //Métodos Abstratos (Precisam ser implementados obbrigatóriamente)
     abstract void executarMenu();    
     abstract void printCabecalho();
     abstract void printMenu();

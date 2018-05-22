@@ -38,8 +38,8 @@ public class MenuMedico extends Menu{
         System.out.println("4) Cadastrar Prontuário");
         System.out.println("5) Editar Prontuário");
         System.out.println("6) Excluir Prontuário");
-        System.out.println("7) Gerar Receita");
-        System.out.println("8) Gerar Atestado");
+        System.out.println("7) Gerar Receita Médica");
+        System.out.println("8) Gerar Atestado Médico");
         System.out.println("9) Gerar Declaração de Acompanhamento");
         System.out.println("10) Gerar Relatório de Clientes Atendidos no mês");
         System.out.println("0) Sair do sistema");
@@ -56,10 +56,10 @@ public class MenuMedico extends Menu{
             } catch (NumberFormatException e) {
                 System.out.println("Opção inválida. Apenas números.");
             }
-            if (opcao < 0 || opcao > 9) {
+            if (opcao < 0 || opcao > 10) {
                 System.out.println("Opção inválida. Não está no menu.");
             }
-        } while (opcao < 0 || opcao > 9);
+        } while (opcao < 0 || opcao > 10);
         return opcao;
     }
 
@@ -95,6 +95,9 @@ public class MenuMedico extends Menu{
                 //Implementar
                 break;
             case 9:
+                //Implementar
+                break;
+            case 10:
                 //Implementar
                 break;
             default:
