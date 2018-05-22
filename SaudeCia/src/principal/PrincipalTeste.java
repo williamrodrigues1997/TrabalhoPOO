@@ -1,20 +1,22 @@
 
 package principal;
 
-import dados.*;
-import java.text.ParseException;
-import secretaria.*;
-import medicos.*;
-import mensagens.*;
+import menus.MenuMedico;
 import menus.MenuSecretaria;
+
 
 
 public class PrincipalTeste {
     
-    public static void main(String args[]) throws ParseException {             
+    public static void main(String args[]) {             
         
-        MenuSecretaria menuSecretaria = new MenuSecretaria();
-        menuSecretaria.executarMenu();
+        //MenuSecretaria menuSecretaria = new MenuSecretaria();
+        //menuSecretaria.executarMenu();
+        
+        MenuMedico menuMedico = new MenuMedico();
+        menuMedico.executarMenu();
+        
+        
         
         /*
         
