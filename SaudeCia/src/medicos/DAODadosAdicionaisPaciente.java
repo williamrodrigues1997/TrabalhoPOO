@@ -13,8 +13,11 @@ public class DAODadosAdicionaisPaciente {
     public void inserir(Paciente paciente, boolean fuma, boolean bebe, boolean colesterol, boolean diabete, boolean doencaCardiaca, List<String> cirurgias, List<String> alergias) {
         DadosAdicionaisPaciente dadosAdicionaisPaciente = new DadosAdicionaisPaciente();
         
+        if(dadosAdicionaisPaciente.getId()==null){ //Caso seja um novo paciente
+             dadosAdicionaisPaciente.setId(Dados.listaAdicionaisPacientes.size()+1); //Gera um novo codigo para ele
+        }
+        
         //Insere os dados adicionais
-        dadosAdicionaisPaciente.setId(paciente.getId());
         dadosAdicionaisPaciente.setPaciente(paciente);
         dadosAdicionaisPaciente.setFuma(fuma);
         dadosAdicionaisPaciente.setBebe(bebe);
@@ -27,11 +30,10 @@ public class DAODadosAdicionaisPaciente {
         Dados.listaAdicionaisPacientes.add(dadosAdicionaisPaciente);
     }
     
-    public void alterar(Integer id, Paciente paciente, boolean fuma, boolean bebe, boolean colesterol, boolean diabete, boolean doencaCardiaca, List<String> cirurgias, List<String> alergias) {
+    public void alterar(Integer id, boolean fuma, boolean bebe, boolean colesterol, boolean diabete, boolean doencaCardiaca, List<String> cirurgias, List<String> alergias) {
         DadosAdicionaisPaciente dadosAdicionaisPaciente = new DadosAdicionaisPaciente();
         
         dadosAdicionaisPaciente.setId(id);
-        dadosAdicionaisPaciente.setPaciente(paciente);
         dadosAdicionaisPaciente.setFuma(fuma);
         dadosAdicionaisPaciente.setBebe(bebe);
         dadosAdicionaisPaciente.setColesterol(colesterol);

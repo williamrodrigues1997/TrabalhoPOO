@@ -150,7 +150,7 @@ public class MenuMedico extends Menu {
                 medico.getGerenciarDadosAdicionaisPacientes().inserir(paciente, fuma,
                         bebe, colesterol, diabete, cardiaco, cirurgias, alergias);
             } else {
-                System.out.println("Paciente ja possui dados adicionais inserido");
+                System.out.println("\nPaciente ja possui dados adicionais inserido");
             }
 
         } else {
@@ -318,6 +318,14 @@ public class MenuMedico extends Menu {
     }
 
     private void menuEditarDadosAdicionais(int opcao, DadosAdicionaisPaciente dadosAdicionais) {
+        boolean fuma = dadosAdicionais.isFuma();
+        boolean bebe = dadosAdicionais.isBebe();
+        boolean diabete = dadosAdicionais.isDiabete();
+        boolean colesterol = dadosAdicionais.isColesterol();
+        boolean cardiaco = dadosAdicionais.isDoencaCardiaca();
+        List<String> cirurgias = dadosAdicionais.getCirurgias();
+        List<String> alergias = dadosAdicionais.getAlergias();
+
         while (opcao != 0) {
             System.out.print("\n1-Fuma? " + booleanToString(dadosAdicionais.isFuma())
                     + "\n2-Bebe? " + booleanToString(dadosAdicionais.isBebe())
@@ -338,26 +346,32 @@ public class MenuMedico extends Menu {
             System.out.print("\n0-Sair");
             System.out.println("\nDigite o numero referente a qual atributo será alterado");
             opcao = leitor.nextInt();
+
             switch (opcao) {
                 case 1:
                     System.out.println("Digite um novo valor para 'Fuma'");
-                    dadosAdicionais.setFuma(campoBooleanObrigatorio("Fuma? "));
+                    fuma = campoBooleanObrigatorio("Fuma? ");
+
                     break;
                 case 2:
                     System.out.println("Digite um novo valor para 'Bebe'");
-                    dadosAdicionais.setBebe(campoBooleanObrigatorio("Bebe? "));
+                    bebe = campoBooleanObrigatorio("Bebe? ");
+
                     break;
                 case 3:
                     System.out.println("Digite um novo valor para 'Colesterol'");
-                    dadosAdicionais.setColesterol(campoBooleanObrigatorio("Colesterol? "));
+                    colesterol = campoBooleanObrigatorio("Colesterol? ");
+
                     break;
                 case 4:
                     System.out.println("Digite um novo valor para 'Diabete'");
-                    dadosAdicionais.setDiabete(campoBooleanObrigatorio("Diabete? "));
+                    diabete = campoBooleanObrigatorio("Diabete? ");
+
                     break;
                 case 5:
                     System.out.println("Digite um novo valor para 'Cardiaco'");
-                    dadosAdicionais.setDoencaCardiaca(campoBooleanObrigatorio("Cardiaco? "));
+                    cardiaco = campoBooleanObrigatorio("Cardiaco? ");
+
                     break;
                 case 6:
                     int acaoCirurgia = -1;
@@ -373,26 +387,29 @@ public class MenuMedico extends Menu {
                             case 1:
                                 System.out.println("Digite o nome da Cirurgia a ser alterada");
                                 String alterarCirurgia = leitor.next();
-                                int i = 0;
-                                for (String nome : dadosAdicionais.getCirurgias()) {
-                                    if (alterarCirurgia.contains(nome)) {
-                                        System.out.println("Digite o novo nome");
-                                        alterarCirurgia = leitor.next();
-                                        dadosAdicionais.getCirurgias().set(i, alterarCirurgia);
-                                        break;
+                                if (cirurgias.contains(alterarCirurgia)) {
+                                    int i = 0;
+                                    for (String nome : cirurgias) {
+                                        if (alterarCirurgia.equals(nome)) {
+                                            System.out.println("Digite o novo nome");
+                                            alterarCirurgia = leitor.next();
+                                            cirurgias.set(i, alterarCirurgia);
+                                            break;
+                                        }
+                                        i++;
                                     }
-                                    i++;
+                                } else {
+                                    System.out.println("Cirurgia não cadastrada");
                                 }
-                                System.out.println("Cirurgia não cadastrada");
+
                                 break;
                             case 2:
                                 System.out.println("Qual o Nome da Cirurgia?");
                                 String nomeCirurgia = leitor.next();
-                                dadosAdicionais.getCirurgias().add(nomeCirurgia);
+                                cirurgias.add(nomeCirurgia);
                                 break;
                             default:
                                 System.out.println("Opção não existe");
-
                         }
                     }
 
@@ -411,22 +428,26 @@ public class MenuMedico extends Menu {
                             case 1:
                                 System.out.println("Digite o nome da Alergia a ser alterada");
                                 String alterarAlergia = leitor.next();
-                                int i = 0;
-                                for (String nome : dadosAdicionais.getAlergias()) {
-                                    if (alterarAlergia.contains(nome)) {
-                                        System.out.println("Digite o novo nome");
-                                        alterarAlergia = leitor.next();
-                                        dadosAdicionais.getAlergias().set(i, alterarAlergia);
-                                        break;
+                                if (alergias.contains(alterarAlergia)) {
+                                    int i = 0;
+                                    for (String nome : alergias) {
+                                        if (alterarAlergia.equals(nome)) {
+                                            System.out.println("Digite o novo nome");
+                                            alterarAlergia = leitor.next();
+                                            alergias.set(i, alterarAlergia);
+                                            break;
+                                        }
+                                        i++;
                                     }
-                                    i++;
+                                } else {
+                                    System.out.println("Alergia não cadastrada");
                                 }
-                                System.out.println("Alergia não cadastrada");
+
                                 break;
                             case 2:
                                 System.out.println("Qual o Nome da Alergia?");
                                 String nomeAlergia = leitor.next();
-                                dadosAdicionais.getAlergias().add(nomeAlergia);
+                                cirurgias.add(nomeAlergia);
                                 break;
                             default:
                                 System.out.println("Opção não existe");
@@ -441,6 +462,7 @@ public class MenuMedico extends Menu {
                     break;
             }
         }
+        medico.getGerenciarDadosAdicionaisPacientes().alterar(dadosAdicionais.getId(), fuma, bebe, colesterol, diabete, cardiaco, cirurgias, alergias);
 
     }
 
@@ -449,11 +471,7 @@ public class MenuMedico extends Menu {
             return false;
         } else {
             for (DadosAdicionaisPaciente dadosAdicionais : medico.getGerenciarDadosAdicionaisPacientes().getLista()) {
-                if (dadosAdicionais.getId().equals(paciente.getId())) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return dadosAdicionais.getPaciente().getId().equals(paciente.getId());
             }
         }
         return true;
