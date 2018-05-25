@@ -94,6 +94,19 @@ public class DadosAdicionaisPaciente {
     public void setAlergias(List<String> alergias) {
         this.alergias = alergias;
     }
+    
+    @Override
+    public String toString(){
+        return "ID: " + this.id
+                + "\nNome: " + this.paciente
+                + "\nFuma: " + this.fuma
+                + "\nBebe: " + this.bebe
+                + "\nColesterol: " + this.colesterol
+                + "\nDiabete: " + this.diabete
+                + "\nDoença Cardiaca: " + this.doencaCardiaca
+                + "\nCirurgias: " + this.cirurgias.toString()
+                + "\nAlergias: " + this.alergias.toString();
+    }
 
     @Override
     public int hashCode() {
@@ -119,5 +132,4 @@ public class DadosAdicionaisPaciente {
         }
         return true;
     }
-
 }

@@ -1,5 +1,6 @@
 package medicos;
 
+import dados.Dados;
 import dados.Datas;
 import java.util.Calendar;
 
@@ -18,43 +19,44 @@ public class RelatorioMedico {
         return relatorio;
     }
 
-    public void gerarReceita(int prontuario) {
-        this.relatorio = "Receita"
-                + "Medico: " + medico.getGerenciarProntuarios().getLista().get(prontuario).getMedico()
-                + "Pciente: " + medico.getGerenciarProntuarios().getLista().get(prontuario).getPaciente()
-                + "Prescrição: " + medico.getGerenciarProntuarios().getLista().get(prontuario).getPrescricaoTratamento()
-                + "Data: " + medico.getGerenciarProntuarios().getLista().get(prontuario).getData();
+    public String gerarReceita(Prontuario prontuario) {
+        return this.relatorio = "\nMedico: " + prontuario.getMedico()
+                + "\nPaciente: " + prontuario.getPaciente().getNome()
+                + "\n"
+                + "\nPrescrição: " + prontuario.getPrescricaoTratamento()
+                + "\n"
+                + "\nData: " + Datas.formatoData.format(prontuario.getData());
     }
 
-    public String gerarDeclaracaoAcompanhante(int prontuario, String nomeAcomp, String cpfAcomp, String parentescoAcomp) {
+    public String gerarDeclaracaoAcompanhante(Prontuario prontuario, String nomeAcomp, String cpfAcomp, String parentescoAcomp) {
         Calendar data = Calendar.getInstance();
 
-        this.relatorio = "\nAtesto para os devidos fins a pedido  que o Sr. " + medico.getGerenciarProntuarios().getLista().get(prontuario).getPaciente() + ","
-                + "\nincrito no CPF sob o nº" + medico.getGerenciarProntuarios().getLista().get(prontuario).getCpf() + ", paciente sob meus cuidados, foi atendido"
-                + "\nno dia" + data.DAY_OF_MONTH + ", ás" + Datas.formatoHora.format(data.getTime()) + ", apresentando quadro de " + medico.getGerenciarProntuarios().getLista().get(prontuario).getDiagnosticoDoenca() + ", tendo sido"
+        this.relatorio
+                = "\nAtesto para os devidos fins a pedido  que o Sr. " + prontuario.getPaciente().getNome() + ","
+                + "\nincrito no CPF sob o nº" + prontuario.getPaciente().getCpf() + ", paciente sob meus cuidados, foi atendido"
+                + "\nno dia " + data.DAY_OF_MONTH + " ,ás " + Datas.formatoHora.format(data.getTime()) + ", apresentando quadro de " + prontuario.getDiagnosticoDoenca() + ", tendo sido"
                 + "\nacompanhado pelo seu " + parentescoAcomp + ", Sr. " + nomeAcomp + ", inscrito no CPF sob o nº: " + cpfAcomp
                 + "\n"
                 + "\n"
-                + data.getTime()
+                + Datas.formatoData.format(data.getTime())
                 + "\n"
                 + "\n"
                 + "_______________________________"
-                + "\n" + medico.getGerenciarProntuarios().getLista().get(prontuario).getMedico()
+                + "\n" + prontuario.getMedico()
                 + "\nCRM";
         return this.relatorio;
     }
 
     public String gerarClientesAtendidosMes() {
         Calendar calendario = Calendar.getInstance();
-
-        if (medico.getGerenciarProntuarios().getLista().size() == 0) {
+        if (Dados.listaProntuarios.isEmpty()) {
             this.relatorio = "\nNão existem consultas cadastradas";
         } else {
             int contador = 0;
-            for (Prontuario prontuario : medico.getGerenciarProntuarios().getLista()) {
+            for (Prontuario prontuario : Dados.listaProntuarios) {
                 if (Datas.formatoDataMesAno.format(calendario.getTime()).equals(Datas.formatoDataMesAno.format(prontuario.getData()))) {
-                    this.relatorio += prontuario.toString() + "\n";
                     contador++;
+                    this.relatorio += prontuario.toString() + "\n";
                 }
             }
 
@@ -66,19 +68,21 @@ public class RelatorioMedico {
         return this.relatorio;
     }
 
-    public String gerarAtestado() {
-        return this.relatorio = "\nAtesto para os devidos fins a pedido  que o Sr. (nome paciente),"
-                + "\nincrito no CPF sob o nº (numero), paciente sob meus cuidados, foi atendido"
-                + "\nno dia (data), ás (horario), apresentando quadro de (informar) e necessita"
-                + "\n de (quantidade) dias  de repouso"
+    public String gerarAtestado(Prontuario prontuario, int dias) {
+        Calendar data = Calendar.getInstance();
+        return this.relatorio
+                = "\nAtesto para os devidos fins a pedido  que o Sr. " + prontuario.getPaciente().getNome() + ", "
+                + "\nincrito no CPF sob o nº " + prontuario.getPaciente().getCpf() + ", paciente sob meus cuidados, foi atendido"
+                + "\nno dia" + data.DAY_OF_MONTH + ", ás " + Datas.formatoData.format(data.getTime()) + ", apresentando quadro de " + prontuario.getDiagnosticoDoenca() + " e necessita"
+                + "\n de " + dias + " dias  de repouso"
                 + "\n(numero)"
                 + "\n"
                 + "\n"
-                + "localidade,  dia de mes de ano"
+                + "localidade, " + data.DAY_OF_MONTH + " de " + data.MONTH + " de " + data.YEAR
                 + "\n"
                 + "\n"
                 + "_______________________________"
-                + "\nnome do medico"
+                + "\n" + prontuario.getMedico()
                 + "\nCRM";
     }
 

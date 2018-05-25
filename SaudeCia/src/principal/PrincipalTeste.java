@@ -10,8 +10,8 @@ public class PrincipalTeste {
     
     public static void main(String args[]) {             
         
-        //MenuSecretaria menuSecretaria = new MenuSecretaria();
-        //menuSecretaria.executarMenu();
+       // MenuSecretaria menuSecretaria = new MenuSecretaria();
+       // menuSecretaria.executarMenu();
         
         MenuMedico menuMedico = new MenuMedico();
         menuMedico.executarMenu();

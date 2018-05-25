@@ -1,5 +1,6 @@
 package medicos;
 
+import dados.Datas;
 import java.util.Date;
 import java.util.Objects;
 import secretaria.Paciente;
@@ -10,7 +11,6 @@ public class Prontuario {
     private Integer id;
     private Paciente paciente;
     private Date data;
-    private String Cpf;
     private String medico;
     private String sintomas;
     private String diagnosticoDoenca;
@@ -45,14 +45,6 @@ public class Prontuario {
         this.data = data;
     }
 
-    public String getCpf() {
-        return Cpf;
-    }
-
-    public void setCpf(String Cpf) {
-        this.Cpf = Cpf;
-    }
-
     public String getMedico() {
         return medico;
     }
@@ -83,6 +75,14 @@ public class Prontuario {
 
     public void setPrescricaoTratamento(String prescricaoTratamento) {
         this.prescricaoTratamento = prescricaoTratamento;
+    }
+    
+    @Override
+    public String toString(){
+        return "\nID: " + this.id
+                + "\nPaciente: " + this.paciente.getNome()
+                + "\nData: " + Datas.formatoData.format(this.data)
+                + "\nMedico: " + this.medico;
     }
 
     @Override
