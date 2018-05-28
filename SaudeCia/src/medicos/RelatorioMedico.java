@@ -8,7 +8,6 @@ public class RelatorioMedico {
 
     //Atributos
     private String relatorio;
-    private Medico medico;
 
     //Construtor
     public RelatorioMedico() {
@@ -25,17 +24,24 @@ public class RelatorioMedico {
                 + "\n"
                 + "\nPrescrição: " + prontuario.getPrescricaoTratamento()
                 + "\n"
-                + "\nData: " + Datas.formatoData.format(prontuario.getData());
+                + "\nData: " + Datas.formatoData.format(prontuario.getData())
+                + "\n"
+                + "\n"
+                + "_______________________________"
+                + "\n" + prontuario.getMedico()
+                + "\nCRM";
     }
 
     public String gerarDeclaracaoAcompanhante(Prontuario prontuario, String nomeAcomp, String cpfAcomp, String parentescoAcomp) {
         Calendar data = Calendar.getInstance();
 
-        this.relatorio
+       return this.relatorio
                 = "\nAtesto para os devidos fins a pedido  que o Sr. " + prontuario.getPaciente().getNome() + ","
-                + "\nincrito no CPF sob o nº" + prontuario.getPaciente().getCpf() + ", paciente sob meus cuidados, foi atendido"
-                + "\nno dia " + data.DAY_OF_MONTH + " ,ás " + Datas.formatoHora.format(data.getTime()) + ", apresentando quadro de " + prontuario.getDiagnosticoDoenca() + ", tendo sido"
-                + "\nacompanhado pelo seu " + parentescoAcomp + ", Sr. " + nomeAcomp + ", inscrito no CPF sob o nº: " + cpfAcomp
+                + "\nincrito no CPF sob o nº" + prontuario.getPaciente().getCpf() + ", paciente sob meus"
+                + "\ncuidados, foi atendido no dia " + data.DAY_OF_MONTH + " ,ás " + Datas.formatoHora.format(data.getTime()) + ", apresentando"
+                + "\nquadro de " + prontuario.getDiagnosticoDoenca() + ","
+                + "\ntendo sido acompanhado pelo seu " + parentescoAcomp + ","
+                + "\nSr. " + nomeAcomp + ", inscrito no CPF sob o nº: " + cpfAcomp
                 + "\n"
                 + "\n"
                 + Datas.formatoData.format(data.getTime())
@@ -44,7 +50,6 @@ public class RelatorioMedico {
                 + "_______________________________"
                 + "\n" + prontuario.getMedico()
                 + "\nCRM";
-        return this.relatorio;
     }
 
     public String gerarClientesAtendidosMes() {
@@ -71,11 +76,11 @@ public class RelatorioMedico {
     public String gerarAtestado(Prontuario prontuario, int dias) {
         Calendar data = Calendar.getInstance();
         return this.relatorio
-                = "\nAtesto para os devidos fins a pedido  que o Sr. " + prontuario.getPaciente().getNome() + ", "
-                + "\nincrito no CPF sob o nº " + prontuario.getPaciente().getCpf() + ", paciente sob meus cuidados, foi atendido"
-                + "\nno dia" + data.DAY_OF_MONTH + ", ás " + Datas.formatoData.format(data.getTime()) + ", apresentando quadro de " + prontuario.getDiagnosticoDoenca() + " e necessita"
-                + "\n de " + dias + " dias  de repouso"
-                + "\n(numero)"
+                = "\nAtesto para os devidos fins a pedido  que o Sr. " + prontuario.getPaciente().getNome() + ","
+                + "\nincrito no CPF sob o nº " + prontuario.getPaciente().getCpf() + ", paciente sob meus"
+                + "\ncuidados, foi atendido no dia" + data.DAY_OF_MONTH + ", ás " + Datas.formatoData.format(data.getTime()) + ", apresentando"
+                + "\nquadro de " + prontuario.getDiagnosticoDoenca() + ""
+                + "\ne necessita de " + dias + " dias  de repouso."
                 + "\n"
                 + "\n"
                 + "localidade, " + data.DAY_OF_MONTH + " de " + data.MONTH + " de " + data.YEAR

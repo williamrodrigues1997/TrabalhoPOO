@@ -53,6 +53,5 @@ public class DAOProntuario {
             }
         }
         return null;
-    }
-    
+    }   
 }

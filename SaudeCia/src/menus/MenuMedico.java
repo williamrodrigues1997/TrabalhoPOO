@@ -28,11 +28,9 @@ public class MenuMedico extends Menu {
             secretaria.getGerenciarPacientes().inserir("teste1", "06197312905", "100722291", Datas.formatoData.parse("12/12/1212"), "enderecoteste1", "999999999", "asd@cvb.com", Convenio.PARTICULAR);
             secretaria.getGerenciarPacientes().inserir("teste2", "06197312805", "100721191", Datas.formatoData.parse("13/14/1212"), "enderecoteste2", "888888888", "asdrp@cvb.com", Convenio.PLANO_DE_SAUDE);
 
-            secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("23/05/2018"), "9:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(0), TipoConsulta.NORMAL);
-            secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("23/05/2018"), "10:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(1), TipoConsulta.NORMAL);
-            secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("22/05/2018"), "9:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(0), TipoConsulta.RETORNO);
-
-            System.out.println("Dados inseridos com sucesso");
+            secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("28/05/2018"), "9:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(0), TipoConsulta.NORMAL);
+            secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("29/05/2018"), "10:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(1), TipoConsulta.NORMAL);
+            secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("29/05/2018"), "9:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(0), TipoConsulta.RETORNO);
 
         } catch (ParseException e) {
             System.err.println("Erro Misterioso");
@@ -129,26 +127,26 @@ public class MenuMedico extends Menu {
         }
     }
 
+    //Concluido
     private void insereDadosAdicionais() {
         if (!secretaria.getGerenciarPacientes().getLista().isEmpty()) {
             criarBorda("DADOS ADICIONAIS DO PACIENTE");
-            System.out.println("Digite o CPF do paciente que deseja adicionar os dados adicionais");
-            String cpf = leitor.next();
-
-            Paciente paciente = secretaria.getGerenciarPacientes().getPacientePorCpf(cpf);
+            Paciente paciente = solicitaPacienteCpf();
 
             if (!checaListaDadosAdicionais(paciente)) {
-                System.out.print("\nPara as proximas respostas digite S para afirmativo ou N para negativo");
-                boolean fuma = campoBooleanObrigatorio("Fuma? ");
-                boolean bebe = campoBooleanObrigatorio("Bebe? ");
-                boolean colesterol = campoBooleanObrigatorio("Colesterol? ");
-                boolean diabete = campoBooleanObrigatorio("Diabete? ");
-                boolean cardiaco = campoBooleanObrigatorio("Cardiaco? ");
+                System.out.print("\nPara as proximas respostas digite S para afirmativo ou N para negativo\n");
+                boolean fuma = campoBooleanObrigatorio("Fuma: ");
+                boolean bebe = campoBooleanObrigatorio("Bebe: ");
+                boolean colesterol = campoBooleanObrigatorio("Colesterol: ");
+                boolean diabete = campoBooleanObrigatorio("Diabete: ");
+                boolean cardiaco = campoBooleanObrigatorio("Cardiaco: ");
                 List<String> cirurgias = carregaListas("Cirurgia");
                 List<String> alergias = carregaListas("Alergia");
 
                 medico.getGerenciarDadosAdicionaisPacientes().inserir(paciente, fuma,
                         bebe, colesterol, diabete, cardiaco, cirurgias, alergias);
+
+                System.out.print("Paciente cadastrado com sucesso!!!\n");
             } else {
                 System.out.println("\nPaciente ja possui dados adicionais inserido");
             }
@@ -161,9 +159,7 @@ public class MenuMedico extends Menu {
     private void editaDadosAdicionais() {
         if (!medico.getGerenciarDadosAdicionaisPacientes().getLista().isEmpty()) {
             criarBorda("EDITAR DADOS ADICIONAIS");
-            System.out.println("Digite o CPF do paciente que deseja editar os dados adicionais");
-            String cpf = leitor.next();
-            Paciente paciente = secretaria.getGerenciarPacientes().getPacientePorCpf(cpf);
+            Paciente paciente = solicitaPacienteCpf();
 
             DadosAdicionaisPaciente dadosAdicionais = medico.getGerenciarDadosAdicionaisPacientes().buscaDadosId(paciente.getId());
 
@@ -184,10 +180,18 @@ public class MenuMedico extends Menu {
             cpf = leitor.next();
 
             Paciente paciente = secretaria.getGerenciarPacientes().getPacientePorCpf(cpf);
-            Date data = solicitaData("Data: ");
-            String nomeMedico = campoObrigatorioString("Medico: ");
-            medico.getGerenciarProntuarios().inserir(data, nomeMedico, paciente, cpf, cpf, cpf);
-            System.out.println("Prontuario do Paciente " + paciente.getNome() + " foi executado com sucesso!");
+            if (!paciente.equals(null)) {
+                Date data = solicitaData("Data: ");
+                String nomeMedico = campoObrigatorioString("Medico: ");
+                String sintomas = campoObrigatorioString("Sintomas: ");
+                String diagnosticoDoenca = campoObrigatorioString("Diagnóstico: ");
+                String prescricaoTratamento = campoObrigatorioString("Prescrição: ");
+
+                medico.getGerenciarProntuarios().inserir(data, nomeMedico, paciente, sintomas, diagnosticoDoenca, prescricaoTratamento);
+                System.out.println("Prontuario do Paciente " + paciente.getNome() + " foi executado com sucesso!");
+            } else {
+                System.out.println("Paciente não encontrado");
+            }
 
         } else {
             System.out.println("Não existem consultas cadastradas");
@@ -199,7 +203,32 @@ public class MenuMedico extends Menu {
     }
 
     private void excluiProntuario() {
+        if (!medico.getGerenciarProntuarios().getLista().isEmpty()) {
+            criarBorda("EXCLUIR PRONTUARIO");
+            Paciente paciente = solicitaPacienteCpf();
+            Prontuario prontuario = medico.getGerenciarProntuarios().buscarProntuarioPorCpf(paciente.getCpf());
+            for (Prontuario p : medico.getGerenciarProntuarios().getLista()) {
+                if (p.getPaciente().getCpf().equals(prontuario.getPaciente().getCpf())) {
+                    System.out.println(p.toString());
+                }
+            }
+            System.out.print("\nDigite o ID do prontuario que deseja excluir\n");
+            System.out.print("ID: ");
+            int id = leitor.nextInt();
 
+            System.out.println("\nTem certeza de que deseja excluir\n"
+                    + "o prontuario do paciente " + paciente.getNome() + " ?");
+            int opcao = getOpcaoConfirmacao();
+            if (opcao == 1) {
+                System.out.println("\nProntuario do paciente " + paciente.getNome() + "\nexcluído do sistema.");
+                medico.getGerenciarProntuarios().remover(id);
+            } else {
+                System.out.println("\nProcedimento de exclusão cancelado.");
+            }
+        } else {
+            System.out.println("\nAinda não existem prontuarios cadastrados no sistema.");
+
+        }
     }
 
     private void gerarReceitaMedica() {
@@ -228,7 +257,7 @@ public class MenuMedico extends Menu {
                 System.out.println("cpf inexistente");
             } else {
                 criarBorda("DECLARACAO DE ACOMPANHANTE");
-                System.out.println(medico.getGerenciarRelatorios().gerarDeclaracaoAcompanhante(prontuario, "teste21", "06694310202", "Pai"));
+                System.out.print(medico.getGerenciarRelatorios().gerarDeclaracaoAcompanhante(prontuario, "teste21", "06694310202", "Pai"));
             }
         }
     }
@@ -243,13 +272,13 @@ public class MenuMedico extends Menu {
                 System.out.println("cpf inexistente");
             } else {
                 criarBorda("DECLARACAO DE ACOMPANHANTE");
-                System.out.println(medico.getGerenciarRelatorios().gerarAtestado(prontuario, 120));
+                System.out.print(medico.getGerenciarRelatorios().gerarAtestado(prontuario, 120));
             }
         }
     }
 
     private void gerarRelatorioPassienteAtendidoMes() {
-        System.out.println(medico.getGerenciarRelatorios().gerarClientesAtendidosMes());
+        System.out.print(medico.getGerenciarRelatorios().gerarClientesAtendidosMes());
     }
 
     //Metodos Auxiliares.
@@ -273,29 +302,25 @@ public class MenuMedico extends Menu {
     }
 
     private List<String> carregaListas(String solicitando) {
-        String opcao = "s";
-        String resposta;
         List<String> lista = new ArrayList<>();
-        System.out.println("Existe alguma " + solicitando + " a ser declarado?");
-        resposta = leitor.next();
+        System.out.println("O paciente tem alguma " + solicitando + " que gostaria de inserir?");
+        System.out.println("Responda \"Sim\" para adicionar ou precione qualquer tecla para sair");
+        System.out.print("resposta: ");
+        String resposta;
+        resposta = leitor.nextLine().toLowerCase();
 
-        if ("n".equals(resposta)) {
-            return null;
-        } else {
-            System.out.println("Digite o nome da " + solicitando);
-            resposta = leitor.next();
-            lista.add(resposta);
-            while ("s".equals(opcao)) {
-                System.out.println("Existe mais alguma " + solicitando + "?");
-                opcao = leitor.next();
-                if ("s".equals(opcao)) {
-                    System.out.println("Digite o nome da " + solicitando);
-                    resposta = leitor.next();
+        if (resposta.equals("sim")) {
+            System.out.println("Precione \"ENTER\" para sair\n");
+            while (!"".equals(resposta)) {
+                System.out.print("Digite o nome da " + solicitando + ": ");
+                resposta = leitor.nextLine();
+                if (!"".equals(resposta)) {
                     lista.add(resposta);
+                } else {
+                    System.out.print("\n");
                 }
             }
         }
-
         return lista;
     }
 
@@ -327,11 +352,11 @@ public class MenuMedico extends Menu {
         List<String> alergias = dadosAdicionais.getAlergias();
 
         while (opcao != 0) {
-            System.out.print("\n1-Fuma? " + booleanToString(dadosAdicionais.isFuma())
-                    + "\n2-Bebe? " + booleanToString(dadosAdicionais.isBebe())
-                    + "\n3-Colesterol? " + booleanToString(dadosAdicionais.isColesterol())
-                    + "\n4-Diabete? " + booleanToString(dadosAdicionais.isDiabete())
-                    + "\n5-Cardiaco? " + booleanToString(dadosAdicionais.isDoencaCardiaca()));
+            System.out.print("\n1-Fuma: " + booleanToString(dadosAdicionais.isFuma())
+                    + "\n2-Bebetzzn: " + booleanToString(dadosAdicionais.isBebe())
+                    + "\n3-Colesterol: " + booleanToString(dadosAdicionais.isColesterol())
+                    + "\n4-Diabete: " + booleanToString(dadosAdicionais.isDiabete())
+                    + "\n5-Cardiaco: " + booleanToString(dadosAdicionais.isDoencaCardiaca()));
             if (dadosAdicionais.getCirurgias() == null) {
                 System.out.print("\n6-Cirurgias: Não existem cirurgias cadastradas para este paciente");
             } else {
@@ -343,13 +368,13 @@ public class MenuMedico extends Menu {
             } else {
                 System.out.print("\n7-Alergias: " + dadosAdicionais.getAlergias());
             }
-            System.out.print("\n0-Sair");
+            System.out.print("\n0-Sair\n");
             System.out.println("\nDigite o numero referente a qual atributo será alterado");
             opcao = leitor.nextInt();
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Digite um novo valor para 'Fuma'");
+                    System.out.print("Digite um novo valor para 'Fuma'");
                     fuma = campoBooleanObrigatorio("Fuma? ");
 
                     break;
@@ -404,9 +429,7 @@ public class MenuMedico extends Menu {
 
                                 break;
                             case 2:
-                                System.out.println("Qual o Nome da Cirurgia?");
-                                String nomeCirurgia = leitor.next();
-                                cirurgias.add(nomeCirurgia);
+                                cirurgias = carregaListas("Cirurgia");
                                 break;
                             default:
                                 System.out.println("Opção não existe");
@@ -445,9 +468,7 @@ public class MenuMedico extends Menu {
 
                                 break;
                             case 2:
-                                System.out.println("Qual o Nome da Alergia?");
-                                String nomeAlergia = leitor.next();
-                                cirurgias.add(nomeAlergia);
+                                alergias = carregaListas("Alergia: ");
                                 break;
                             default:
                                 System.out.println("Opção não existe");
@@ -475,5 +496,20 @@ public class MenuMedico extends Menu {
             }
         }
         return true;
+    }
+
+    private Paciente solicitaPacienteCpf() {
+        Paciente paciente;
+        String cpf;
+        do {
+            System.out.print("CPF do paciente: ");
+            cpf = leitor.nextLine();
+            paciente = secretaria.getGerenciarPacientes().getPacientePorCpf(cpf);
+            if (paciente == null) {
+                System.out.println("Nenhum resultado para o CPF " + cpf);
+            }
+        } while (paciente == null);
+
+        return paciente;
     }
 }
