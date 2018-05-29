@@ -29,8 +29,8 @@ public class DadosAdicionaisPaciente {
 
     public void setId(Integer id) {
         this.id = id;
-    }    
-    
+    }
+
     public Paciente getPaciente() {
         return paciente;
     }
@@ -94,9 +94,9 @@ public class DadosAdicionaisPaciente {
     public void setAlergias(List<String> alergias) {
         this.alergias = alergias;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "ID: " + this.id
                 + "\nNome: " + this.paciente
                 + "\nFuma: " + this.fuma

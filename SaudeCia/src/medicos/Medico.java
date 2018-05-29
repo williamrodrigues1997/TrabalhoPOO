@@ -3,14 +3,13 @@ package medicos;
 public class Medico {
 
     //Atributos
-
     private DAODadosAdicionaisPaciente gerenciarDadosAdicionaisPacientes = new DAODadosAdicionaisPaciente();
     private DAOProntuario gerenciarProntuarios = new DAOProntuario();
     private RelatorioMedico gerenciarRelatorios = new RelatorioMedico();
 
     //Construtor
     public Medico() {
-        
+
     }
 
     //Metodos
@@ -37,6 +36,5 @@ public class Medico {
     public void setGerenciarRelatorios(RelatorioMedico gerenciarRelatorios) {
         this.gerenciarRelatorios = gerenciarRelatorios;
     }
-     
-        
+
 }

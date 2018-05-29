@@ -14,7 +14,6 @@ public class RelatorioConsulta {
     }
 
     //Metodos
-
     public String getRelatorio() {
         return relatorio;
 
@@ -24,17 +23,15 @@ public class RelatorioConsulta {
         this.relatorio = relatorio;
     }
 
-    /** 
-     * @param opcao
-     * true caso queria um relatório de pacientes COM informações de contato;
-     * false caso queria um relatório de pacientes SEM infotmações de contato.
-     * 
-     * @param numDias
-     * quantidade de dias seguintes após o dia atual que o relatório exibirá
-     * consultas referentes.
-     * 
-     * @return
-     * Retorna um relatório (String) armazenado no atributo relatorio
+    /**
+     * @param opcao true caso queria um relatório de pacientes COM informações
+     * de contato; false caso queria um relatório de pacientes SEM infotmações
+     * de contato.
+     *
+     * @param numDias quantidade de dias seguintes após o dia atual que o
+     * relatório exibirá consultas referentes.
+     *
+     * @return Retorna um relatório (String) armazenado no atributo relatorio
      * das consultas agendadas para os numDias dias seguintes.
      */
     public String gerarRelatorio(boolean opcao, int numDias) {
@@ -54,7 +51,7 @@ public class RelatorioConsulta {
                 }
             }
             this.relatorio += "\n-------------------------------";
-        }else{
+        } else {
             this.relatorio = "-------------------------------"
                     + "\n- Consultas para o dia seguinte"
                     + "\n- Pacientes SEM Info de Contado";

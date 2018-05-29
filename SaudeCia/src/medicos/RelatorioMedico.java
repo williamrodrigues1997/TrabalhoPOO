@@ -35,7 +35,7 @@ public class RelatorioMedico {
     public String gerarDeclaracaoAcompanhante(Prontuario prontuario, String nomeAcomp, String cpfAcomp, String parentescoAcomp) {
         Calendar data = Calendar.getInstance();
 
-       return this.relatorio
+        return this.relatorio
                 = "\nAtesto para os devidos fins a pedido  que o Sr. " + prontuario.getPaciente().getNome() + ","
                 + "\nincrito no CPF sob o nº" + prontuario.getPaciente().getCpf() + ", paciente sob meus"
                 + "\ncuidados, foi atendido no dia " + data.DAY_OF_MONTH + " ,ás " + Datas.formatoHora.format(data.getTime()) + ", apresentando"

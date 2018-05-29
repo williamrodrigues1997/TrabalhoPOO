@@ -27,7 +27,7 @@ public class Prontuario {
 
     public void setId(Integer id) {
         this.id = id;
-    }    
+    }
 
     public Paciente getPaciente() {
         return paciente;
@@ -51,7 +51,7 @@ public class Prontuario {
 
     public void setMedico(String medico) {
         this.medico = medico;
-    }   
+    }
 
     public String getSintomas() {
         return sintomas;
@@ -76,9 +76,9 @@ public class Prontuario {
     public void setPrescricaoTratamento(String prescricaoTratamento) {
         this.prescricaoTratamento = prescricaoTratamento;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "\nID: " + this.id
                 + "\nPaciente: " + this.paciente.getNome()
                 + "\nData: " + Datas.formatoData.format(this.data)

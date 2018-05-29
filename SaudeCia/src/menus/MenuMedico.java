@@ -25,15 +25,15 @@ public class MenuMedico extends Menu {
     @Override
     public void executarMenu() {
         try {
-            secretaria.getGerenciarPacientes().inserir("teste1", "06197312905", "100722291", Datas.formatoData.parse("12/12/1212"), "enderecoteste1", "999999999", "asd@cvb.com", Convenio.PARTICULAR);
-            secretaria.getGerenciarPacientes().inserir("teste2", "06197312805", "100721191", Datas.formatoData.parse("13/14/1212"), "enderecoteste2", "888888888", "asdrp@cvb.com", Convenio.PLANO_DE_SAUDE);
+            secretaria.getGerenciarPacientes().inserir("William Rodrigues", "07454709982", "130553931", Datas.formatoData.parse("09/03/1997"), "enderecoteste1", "998704725", "ra99514@uem.br", Convenio.PARTICULAR);
+            secretaria.getGerenciarPacientes().inserir("Ronny Adel", "06197312805", "100721191", Datas.formatoData.parse("13/05/1995"), "enderecoteste2", "888888888", "asdrp@cvb.com", Convenio.PLANO_DE_SAUDE);
 
             secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("28/05/2018"), "9:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(0), TipoConsulta.NORMAL);
             secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("29/05/2018"), "10:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(1), TipoConsulta.NORMAL);
             secretaria.getGerenciarConsultas().inserir(Datas.formatoData.parse("29/05/2018"), "9:30", "Dr.123", secretaria.getGerenciarPacientes().getLista().get(0), TipoConsulta.RETORNO);
 
         } catch (ParseException e) {
-            System.err.println("Erro Misterioso");
+            System.err.println("Erro");
         }
 
         printCabecalho();
@@ -161,7 +161,7 @@ public class MenuMedico extends Menu {
             criarBorda("EDITAR DADOS ADICIONAIS");
             Paciente paciente = solicitaPacienteCpf();
 
-            DadosAdicionaisPaciente dadosAdicionais = medico.getGerenciarDadosAdicionaisPacientes().buscaDadosId(paciente.getId());
+            DadosAdicionaisPaciente dadosAdicionais = medico.getGerenciarDadosAdicionaisPacientes().getDadosAdicionaisPorId(paciente.getId());
 
             int opcao = -1;
             menuEditarDadosAdicionais(opcao, dadosAdicionais);
@@ -206,7 +206,7 @@ public class MenuMedico extends Menu {
         if (!medico.getGerenciarProntuarios().getLista().isEmpty()) {
             criarBorda("EXCLUIR PRONTUARIO");
             Paciente paciente = solicitaPacienteCpf();
-            Prontuario prontuario = medico.getGerenciarProntuarios().buscarProntuarioPorCpf(paciente.getCpf());
+            Prontuario prontuario = medico.getGerenciarProntuarios().getProntuarioPorCpf(paciente.getCpf());
             for (Prontuario p : medico.getGerenciarProntuarios().getLista()) {
                 if (p.getPaciente().getCpf().equals(prontuario.getPaciente().getCpf())) {
                     System.out.println(p.toString());
@@ -236,7 +236,7 @@ public class MenuMedico extends Menu {
             String cpf;
             System.out.println("Digite o cpf do Paciente a ser gerado a receita");
             cpf = leitor.next();
-            Prontuario prontuario = medico.getGerenciarProntuarios().buscarProntuarioPorCpf(cpf);
+            Prontuario prontuario = medico.getGerenciarProntuarios().getProntuarioPorCpf(cpf);
             if (prontuario == null) {
                 System.out.println("cpf inexistente");
             } else {
@@ -252,7 +252,7 @@ public class MenuMedico extends Menu {
             String cpf;
             System.out.println("Digite o cpf do Paciente a ser gerado a receita");
             cpf = leitor.next();
-            Prontuario prontuario = medico.getGerenciarProntuarios().buscarProntuarioPorCpf(cpf);
+            Prontuario prontuario = medico.getGerenciarProntuarios().getProntuarioPorCpf(cpf);
             if (prontuario == null) {
                 System.out.println("cpf inexistente");
             } else {
@@ -267,7 +267,7 @@ public class MenuMedico extends Menu {
             String cpf;
             System.out.println("Digite o cpf do Paciente a ser gerado a receita");
             cpf = leitor.next();
-            Prontuario prontuario = medico.getGerenciarProntuarios().buscarProntuarioPorCpf(cpf);
+            Prontuario prontuario = medico.getGerenciarProntuarios().getProntuarioPorCpf(cpf);
             if (prontuario == null) {
                 System.out.println("cpf inexistente");
             } else {

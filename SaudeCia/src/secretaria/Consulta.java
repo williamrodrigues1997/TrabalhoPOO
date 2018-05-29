@@ -1,6 +1,5 @@
 package secretaria;
 
-
 import dados.Datas;
 import java.util.Date;
 import java.util.Objects;
@@ -26,7 +25,7 @@ public class Consulta {
 
     public void setId(Integer id) {
         this.id = id;
-    }    
+    }
 
     public Date getData() {
         return data;
@@ -69,15 +68,15 @@ public class Consulta {
     }
 
     @Override
-    public String toString(){
-        return "ID: " + this.id 
-                + "\nData: "+ Datas.formatoData.format(this.data) 
+    public String toString() {
+        return "ID: " + this.id
+                + "\nData: " + Datas.formatoData.format(this.data)
                 + "\nHorario: " + this.horario
                 + "\nMedico: " + this.medico
                 + "\nPaciente: " + this.paciente.getNome()
                 + "\nTipo: " + this.tipo.getDescricao();
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

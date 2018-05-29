@@ -11,20 +11,17 @@ import java.util.Scanner;
 public abstract class Menu {
 
     //Atributos
-
     /**
-     * Scanner utilizado para leitura de informações 
-     * atravez da porta de entrada padrão do sistema do usuário
+     * Scanner utilizado para leitura de informações atravez da porta de entrada
+     * padrão do sistema do usuário
      */
     protected final Scanner leitor = new Scanner(System.in);
 
     //Métodos
-
     /**
      * Método utilizado para destacar titulos de operações nos Menus
-     * 
-     * @param mensagem
-     * String que será impressa com uma borda 
+     *
+     * @param mensagem String que será impressa com uma borda
      */
     protected void criarBorda(String mensagem) {
         System.out.println();
@@ -42,10 +39,9 @@ public abstract class Menu {
 
     /**
      * Método utilizado para obter confirmação de determinada ação do usuário
-     * 
-     * @return
-     * 1 caso o usuário queria confirmar
-     * 2 caso o usuário queria cancelar a operação
+     *
+     * @return 1 caso o usuário queria confirmar 2 caso o usuário queria
+     * cancelar a operação
      */
     protected int getOpcaoConfirmacao() {
         int opcao = -1;
@@ -68,13 +64,12 @@ public abstract class Menu {
 
     /**
      * Método utilizado para solicitar/tratar inserção de datas do usuário
-     * 
-     * @param solicitando
-     * String que será exibida solicitando ao usuário uma data
-     * por exemplo "Data de nascimento: " ou "Data: "
-     * 
-     * @return
-     * Retorna um objeto do tipo Date referente a string informada pelo usuário
+     *
+     * @param solicitando String que será exibida solicitando ao usuário uma
+     * data por exemplo "Data de nascimento: " ou "Data: "
+     *
+     * @return Retorna um objeto do tipo Date referente a string informada pelo
+     * usuário
      */
     protected Date solicitaData(String solicitando) {
         boolean sucesso = false;
@@ -96,13 +91,11 @@ public abstract class Menu {
 
     /**
      * Método utilizado para solicitar um campo obrigatório do tipo String
-     * 
-     * @param solicitando
-     * String que será exibida solicitando ao usuário uma informação
-     * por exemplo: "Nome: " ou "Endereço: "
-     * 
-     * @return
-     * Retorna uma String com o campo informado pelo usuário
+     *
+     * @param solicitando String que será exibida solicitando ao usuário uma
+     * informação por exemplo: "Nome: " ou "Endereço: "
+     *
+     * @return Retorna uma String com o campo informado pelo usuário
      */
     protected String campoObrigatorioString(String solicitando) {
         String campo;
@@ -118,11 +111,15 @@ public abstract class Menu {
         }
         return campo;
     }
-    
+
     //Métodos Abstratos (Precisam ser implementados obbrigatóriamente)
-    abstract void executarMenu();    
+    abstract void executarMenu();
+
     abstract void printCabecalho();
+
     abstract void printMenu();
+
     abstract int solicitaOpcaoMenu();
+
     abstract void executarAcao(int opcao);
 }

@@ -24,7 +24,7 @@ public class MenuSecretaria extends Menu {
     }
 
     @Override
-     void printCabecalho() {
+    void printCabecalho() {
         System.out.println("Desenvolvido por: William Rodrigues e Ronny Adel");
         System.out.println("+-----------------------------------+");
         System.out.println("|       Bem-Vindo ao Sistema        |");
@@ -35,7 +35,7 @@ public class MenuSecretaria extends Menu {
     }
 
     @Override
-     void printMenu() {
+    void printMenu() {
         criarBorda("Escolha a opção desejada");
         System.out.println("1) Cadastrar Paciente");
         System.out.println("2) Editar Paciente");
@@ -46,11 +46,12 @@ public class MenuSecretaria extends Menu {
         System.out.println("7) Listar Pacientes Cadastrados");
         System.out.println("8) Listar Consultas Agendadas");
         System.out.println("9) Gerar Relatórios de Consulta");
+        System.out.println("10) Enviar Mensagens de notificação");
         System.out.println("0) Sair do sistema");
     }
 
     @Override
-     int solicitaOpcaoMenu() {
+    int solicitaOpcaoMenu() {
 
         int opcao = -1;
         do {
@@ -60,15 +61,15 @@ public class MenuSecretaria extends Menu {
             } catch (NumberFormatException e) {
                 System.out.println("Opção inválida. Apenas números.");
             }
-            if (opcao < 0 || opcao > 9) {
+            if (opcao < 0 || opcao > 10) {
                 System.out.println("Opção inválida. Não está no menu.");
             }
-        } while (opcao < 0 || opcao > 9);
+        } while (opcao < 0 || opcao > 10);
         return opcao;
     }
 
     @Override
-     void executarAcao(int opcao) {
+    void executarAcao(int opcao) {
         switch (opcao) {
             case 0:
                 System.out.println("\nObrigado por usar o Sistema.");
@@ -100,6 +101,9 @@ public class MenuSecretaria extends Menu {
                 break;
             case 9:
                 gerarRelatorioConsultas();
+                break;
+            case 10:
+                enviarMensgaens();
                 break;
             default:
                 System.out.println("Erro desconhecido.");
@@ -366,6 +370,42 @@ public class MenuSecretaria extends Menu {
         } else {
             System.out.println("\nAinda não existem consultas cadastradas no sistema.");
         }
+    }
+
+    private void enviarMensgaens() {
+        if (!secretaria.getGerenciarConsultas().getLista().isEmpty()) {
+            criarBorda("ENVIAR MENSAGENS");
+            int opcao = solicitaOpcaoMensagens();
+            if (opcao == 1) {
+                System.out.println("\nEnviando E-mails informando consultas agendadas para amanhã...");
+                secretaria.getGerenciarMensagens().enviarMensagens(true, 1);
+            } else {
+                System.out.println("\nEnviando SMS's informando consultas agendadas para amanhã...");
+                secretaria.getGerenciarMensagens().enviarMensagens(false, 1);
+            }
+
+        } else {
+            System.out.println("\nAinda não existem consultas cadastradas no sistema.");
+        }
+    }
+
+    private int solicitaOpcaoMensagens() {
+        int opcao = -1;
+        do {
+            System.out.println("Selecione o tipo de mensagem:"
+                    + "\n1) E-Mail"
+                    + "\n2) SMS");
+            System.out.print("Opção: ");
+            try {
+                opcao = Integer.parseInt(leitor.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Opção inválida. Apenas números.");
+            }
+            if (opcao < 1 || opcao > 2) {
+                System.out.println("Opção inválida. Não está no menu.");
+            }
+        } while (opcao < 1 || opcao > 2);
+        return opcao;
     }
 
 }
