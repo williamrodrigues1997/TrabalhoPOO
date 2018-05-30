@@ -3,9 +3,17 @@ package dados;
 import medicos.Medico;
 import java.util.ArrayList;
 import java.util.List;
-import medicos.*;
-import secretaria.*;
+import medicos.DadosAdicionaisPaciente;
+import medicos.Prontuario;
+import secretaria.Consulta;
+import secretaria.Paciente;
 
+
+/**
+ *
+ * Definição de variáveis estáticas para uso geral no sistema com objetivo de 
+ * armazenar os dados em mémoria em coleções do tipo List.
+ */
 public class Dados {
 
     public static List<Paciente> listaPacientes = new ArrayList();

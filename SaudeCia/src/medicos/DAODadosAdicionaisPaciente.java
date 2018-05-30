@@ -4,6 +4,10 @@ import dados.Dados;
 import java.util.List;
 import secretaria.Paciente;
 
+/**
+ *
+ * Classe responsável pelo CRUD relacionado ao POJO DadosAdicionaisPaciente.
+ */
 public class DAODadosAdicionaisPaciente {
 
     public List<DadosAdicionaisPaciente> getLista() {

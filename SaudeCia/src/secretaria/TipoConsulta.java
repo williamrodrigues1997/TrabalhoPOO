@@ -1,5 +1,9 @@
 package secretaria;
 
+/**
+ *
+ * Enumeração dos tipos de Consulta que podem ser agendadas para um Paciente.
+ */
 public enum TipoConsulta {
     NORMAL("Normal (duração de 1 hora)"),
     RETORNO("Retorno (duração de 30 minutos)");

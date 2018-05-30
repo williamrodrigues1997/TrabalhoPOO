@@ -2,7 +2,7 @@ package secretaria;
 
 import java.util.Calendar;
 import dados.Dados;
-import dados.Datas;
+import datas.Datas;
 
 public class RelatorioConsulta {
 

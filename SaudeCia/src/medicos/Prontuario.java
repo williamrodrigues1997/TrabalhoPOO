@@ -1,10 +1,15 @@
 package medicos;
 
-import dados.Datas;
+import datas.Datas;
 import java.util.Date;
 import java.util.Objects;
 import secretaria.Paciente;
 
+/**
+ *
+ * Classe POJO que reresenta um Prontuário.
+ * Gerenciado por um Médico.
+ */
 public class Prontuario {
 
     //Atributos

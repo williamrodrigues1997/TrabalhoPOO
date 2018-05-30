@@ -4,6 +4,10 @@ import dados.Dados;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * Classe responsável pelo CRUD relacionado ao POJO Consulta.
+ */
 public class DAOConsulta {
 
     public List<Consulta> getLista() {

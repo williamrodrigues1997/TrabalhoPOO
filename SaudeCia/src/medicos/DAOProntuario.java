@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 import secretaria.Paciente;
 
+/**
+ *
+ * Classe responsável pelo CRUD relacionado ao POJO Prontuario.
+ */
 public class DAOProntuario {
 
     public List<Prontuario> getLista() {

@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 import medicos.DadosAdicionaisPaciente;
 
+/**
+ *
+ * Classe responsável pelo CRUD relacionado ao POJO Paciente.
+ */
 public class DAOPaciente {
 
     public List<Paciente> getLista() {

@@ -1,12 +1,12 @@
 package menus;
 
-import dados.Datas;
+import datas.Datas;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
 /**
- * Super classe Menu com operações úteis para os demais Menus do sistema
+ * Super classe Menu com operações úteis para os demais Menus do sistema.
  */
 public abstract class Menu {
 

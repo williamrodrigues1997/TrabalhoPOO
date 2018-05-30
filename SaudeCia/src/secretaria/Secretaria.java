@@ -2,16 +2,24 @@ package secretaria;
 
 import mensagens.GerenciadorMensagens;
 
+/**
+ *
+ * Classe que representa as funcionalidades de uma Secretária da clínica.
+ */
 public class Secretaria {
 
-    //Atributos
-    private final DAOPaciente gerenciarPacientes = new DAOPaciente();
-    private final DAOConsulta gerenciarConsultas = new DAOConsulta();
-    private final RelatorioConsulta relatorioConsulta = new RelatorioConsulta();
-    private final GerenciadorMensagens gerenciarMensagens = new GerenciadorMensagens();
+    //Atributos (Gerenciadores/Funcionalidades da Secretária)
+    private final DAOPaciente gerenciarPacientes;
+    private final DAOConsulta gerenciarConsultas;
+    private final GerenciadorMensagens gerenciarMensagens;
+    private final RelatorioConsulta relatorioConsulta;
 
     //Construtor
     public Secretaria() {
+        this.gerenciarPacientes = new DAOPaciente();
+        this.gerenciarConsultas = new DAOConsulta();
+        this.gerenciarMensagens = new GerenciadorMensagens();
+        this.relatorioConsulta = new RelatorioConsulta();
     }
 
     //Metodos

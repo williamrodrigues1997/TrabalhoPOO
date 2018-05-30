@@ -1,6 +1,6 @@
 package menus;
 
-import dados.Datas;
+import datas.Datas;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +15,11 @@ import secretaria.Paciente;
 import secretaria.Secretaria;
 import secretaria.TipoConsulta;
 
+/**
+ *
+ * Sub-classe da classe Menu para possibilitar a execução de ações de um
+ * Médico atravez do console.
+ */
 public class MenuMedico extends Menu {
 
     //Atributos

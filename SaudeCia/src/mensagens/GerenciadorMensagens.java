@@ -1,7 +1,7 @@
 package mensagens;
 
 import dados.Dados;
-import dados.Datas;
+import datas.Datas;
 import java.util.Calendar;
 import secretaria.Consulta;
 import secretaria.Paciente;
@@ -10,7 +10,7 @@ public class GerenciadorMensagens {
 
     /**
      *
-     * @param opcao true caso queria enviar emails, false para enviar SMS's
+     * @param opcao true caso queira enviar emails, false para enviar SMS's
      *
      * @param numDias Quantidade de dias que faltam para a consulta
      */
@@ -40,6 +40,7 @@ public class GerenciadorMensagens {
         }
     }
 
+    //Simulação da operação Enviar E-mail
     private void enviarEmail(Paciente paciente, Consulta consulta) {
         Email email = new Email();
         String mensagem = "Prezado(a) paciente " + paciente.getNome()
@@ -51,6 +52,7 @@ public class GerenciadorMensagens {
                 + " (" + paciente.getNome() + ")");
     }
 
+    //Simulação da operação Enviar SMS
     private void enviarSms(Paciente paciente, Consulta consulta) {
         Sms sms = new Sms();
         String mensagem = "Clínica Saúde & Cia"

@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Objects;
 import secretaria.Paciente;
 
+/**
+ *
+ * Classe POJO que reresenta os dados adicionais de um Paciente da clínica.
+ * Utilizado e gerenciado por um Médico.
+ */
 public class DadosAdicionaisPaciente {
 
     //Atributos

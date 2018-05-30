@@ -1,7 +1,7 @@
 package medicos;
 
 import dados.Dados;
-import dados.Datas;
+import datas.Datas;
 import java.util.Calendar;
 
 public class RelatorioMedico {

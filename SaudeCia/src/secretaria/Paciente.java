@@ -1,9 +1,14 @@
 package secretaria;
 
-import dados.Datas;
+import datas.Datas;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ *
+ * Classe POJO que reresenta um Paciente da clínica.
+ * Gerenciado por uma Secretária.
+ */
 public class Paciente {
 
     //Atributos

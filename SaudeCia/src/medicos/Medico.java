@@ -1,15 +1,21 @@
 package medicos;
 
+/**
+ *
+ * Classe que representa as funcionalidades de um Médico da clínica.
+ */
 public class Medico {
 
-    //Atributos
-    private DAODadosAdicionaisPaciente gerenciarDadosAdicionaisPacientes = new DAODadosAdicionaisPaciente();
-    private DAOProntuario gerenciarProntuarios = new DAOProntuario();
-    private RelatorioMedico gerenciarRelatorios = new RelatorioMedico();
+    //Atributos (Gerenciadores/Funcionalidades do Médico)
+    private DAODadosAdicionaisPaciente gerenciarDadosAdicionaisPacientes;
+    private DAOProntuario gerenciarProntuarios;
+    private RelatorioMedico gerenciarRelatorios;
 
     //Construtor
     public Medico() {
-
+        this.gerenciarRelatorios = new RelatorioMedico();
+        this.gerenciarProntuarios = new DAOProntuario();
+        this.gerenciarDadosAdicionaisPacientes = new DAODadosAdicionaisPaciente();
     }
 
     //Metodos

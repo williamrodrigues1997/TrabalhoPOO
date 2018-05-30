@@ -7,6 +7,11 @@ import secretaria.Paciente;
 import secretaria.Secretaria;
 import secretaria.TipoConsulta;
 
+/**
+ *
+ * Sub-classe da classe Menu para possibilitar a execução de ações de uma
+ * Secretária atravez do console.
+ */
 public class MenuSecretaria extends Menu {
 
     //Atributos

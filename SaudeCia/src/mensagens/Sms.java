@@ -1,5 +1,9 @@
 package mensagens;
 
+/**
+ *
+ * Classe POJO que reresenta uma mensagem do tipo SMS.
+ */
 public class Sms {
 
     //Atributos
